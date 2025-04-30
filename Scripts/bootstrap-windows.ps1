@@ -1,5 +1,20 @@
 Write-Host "=== Running Windows Bootstrap Script ==="
 
+# --- Define dotfiles path ---
+$dotfilesPath = "$env:USERPROFILE\dotfiles"
+
+# --- Ensure dotfiles repo is cloned ---
+if (-not (Test-Path $dotfilesPath)) {
+    Write-Host "⚠️ dotfiles repo not found at $dotfilesPath"
+    Write-Host "📦 Cloning from GitHub..."
+    git clone https://github.com/eirikio/dotfiles.git $dotfilesPath
+
+    if (-not (Test-Path $dotfilesPath)) {
+        Write-Host "❌ Failed to clone dotfiles repo. Exiting..."
+        exit 1
+    }
+}
+
 # --- Install Applications via Winget ---
 winget install Microsoft.PowerToys -e --id Microsoft.PowerToys
 winget install Brave.Brave -e
@@ -16,7 +31,6 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name
 powercfg /hibernate off
 
 # --- Set PowerShell Profile from Dotfiles ---
-$dotfilesPath = "$env:USERPROFILE\dotfiles"
 $sourceProfile = "$dotfilesPath\powershell\Microsoft.PowerShell_profile.ps1"
 $targetProfile = $PROFILE
 
@@ -37,11 +51,11 @@ if (Test-Path $terminalJsonDest) {
 }
 
 if (Test-Path $terminalJsonSource) {
-    # Replace placeholder username if needed
+    # Replace __USERNAME__ with actual username in settings.json
     (Get-Content $terminalJsonSource) -replace '__USERNAME__', $env:USERNAME | Set-Content $terminalJsonDest
     Write-Host "✅ Applied Windows Terminal settings from dotfiles"
 } else {
     Write-Host "⚠️ Terminal settings.json not found in dotfiles"
 }
 
-Write-Host "=== Windows Bootstrap Completed ==="
+Write-Host "=== ✅ Windows Bootstrap Completed ==="
