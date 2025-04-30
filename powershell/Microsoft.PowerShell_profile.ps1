@@ -25,30 +25,20 @@ Write-Host "$ aliases - View list of aliases" -ForegroundColor Cyan
 Write-Host "$ wsl - Oh My Zsh" -ForegroundColor Cyan
 Write-Host ""
 
-# Import the Chocolatey Profile that contains the necessary code to enable
-# tab-completions to function for `choco`.
-# Be aware that if you are missing these lines from your profile, tab completion
-# for `choco` will not function.
-# See https://ch0.co/tab-completion for details.
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-  Import-Module "$ChocolateyProfile"
-}
-
 # Aliases & Functions
-function commands {
-    Start-Process "C:\Users\eirik\commands\index.html"
-}
-function codecommands {
-    code C:\Users\eirik\commands\index.html
-}
-function wslhome {
-    wsl.exe ~
-}
-function gohome {
-    cd C:\Users\eirik
-}
-function profile {
+#function commands {
+#    Start-Process "C:\Users\eirik\commands\index.html"
+#}
+#function codecommands {
+#    code C:\Users\eirik\commands\index.html
+#}
+# function wslhome {
+#    wsl.exe ~
+#}
+#function gohome {
+#    cd C:\Users\eirik
+#}
+function pedit {
     notepad $profile
     Write-Host ""
     Write-Host "$ psave - To save changes" -ForegroundColor Green
