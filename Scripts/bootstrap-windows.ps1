@@ -38,4 +38,57 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name
 # Turn off fast startup
 powercfg /hibernate off
 
+# Set up Windows Terminal profiles (example using JSON patching)
+
+# Path to settings file
+$settingsPath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+
+# Backup existing settings
+Copy-Item $settingsPath "$settingsPath.bak"
+
+# Load current settings
+$json = Get-Content $settingsPath | ConvertFrom-Json
+
+# Define custom WSL profile
+$wslProfile = @{
+    name = "WSL Ubuntu"
+    commandline = "wsl.exe"
+    startingDirectory = "//wsl$/Ubuntu/home/$env:USERNAME"
+    fontFace = "FiraCode Nerd Font"
+    hidden = $false
+    colorScheme = "Campbell"
+}
+
+# Add WSL profile if not already present
+$existing = $json.profiles.list | Where-Object { $_.name -eq "WSL Ubuntu" }
+if (-not $existing) {
+    $json.profiles.list += $wslProfile
+}
+
+# Save back to file
+$json | ConvertTo-Json -Depth 100 | Set-Content -Path $settingsPath -Force
+
+Write-Host "✅ Windows Terminal WSL profile configured"
+
+# === Apply Windows Terminal settings.json ===
+
+# Set your dotfiles path (adjust if different)
+$dotfilesPath = "$env:USERPROFILE\dotfiles"
+$terminalJsonSource = "$dotfilesPath\terminal\settings.json"
+$terminalJsonDest = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+
+# Backup existing settings
+if (Test-Path $terminalJsonDest) {
+    Copy-Item $terminalJsonDest "$terminalJsonDest.bak" -Force
+    Write-Host "📝 Backed up existing Windows Terminal settings."
+}
+
+# Copy new settings
+if (Test-Path $terminalJsonSource) {
+    Copy-Item $terminalJsonSource $terminalJsonDest -Force
+    Write-Host "✅ Applied new Windows Terminal settings from dotfiles."
+} else {
+    Write-Host "⚠️ settings.json not found at $terminalJsonSource. Skipping..."
+}
+
 Write-Host "=== Windows Bootstrap Completed ==="
