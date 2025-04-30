@@ -24,6 +24,7 @@ winget install Discord.Discord -e
 winget install Spotify.Spotify -e
 winget install Valve.Steam -e
 winget install Blizzard.BattleNet -e
+winget install Delugia.Nerd.Font -e
 # winget install Notepad++.Notepad++ -e  # Optional
 
 # --- Tweak Windows Settings ---
