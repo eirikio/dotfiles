@@ -1,1 +1,69 @@
+{
+  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "defaultProfile": "{b2c8f8d8-bf6a-4e91-822d-9436d83289b2}",
 
+  "profiles": {
+    "defaults": {
+      "font": {
+        "face": "FiraCode Nerd Font",
+        "size": 12
+      }
+    },
+    "list": [
+      {
+        "guid": "{b2c8f8d8-bf6a-4e91-822d-9436d83289b2}",
+        "name": "WSL Ubuntu",
+        "source": "Windows.Terminal.Wsl",
+        "commandline": "wsl.exe ~",
+        "hidden": false,
+        "colorScheme": "Avvente",
+        "startingDirectory": "//wsl$/Ubuntu/home/__USERNAME__"
+      },
+      {
+        "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+        "name": "Windows PowerShell",
+        "source": "Windows.Terminal.PowershellCore",
+        "colorScheme": "Avvente",
+        "hidden": false
+      },
+      {
+        "guid": "{00000000-0000-0000-ba54-000000000002}",
+        "name": "Git Bash",
+        "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
+        "startingDirectory": "%USERPROFILE%",
+        "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
+        "colorScheme": "Avvente",
+        "hidden": false
+      }
+    ]
+  },
+
+  "schemes": [
+    {
+      "name": "Avvente",
+      "background": "#1E1E1E",
+      "foreground": "#C8C8C8",
+      "black": "#1E1E1E",
+      "red": "#D16969",
+      "green": "#B5CEA8",
+      "yellow": "#DCDCAA",
+      "blue": "#569CD6",
+      "purple": "#C586C0",
+      "cyan": "#9CDCFE",
+      "white": "#D4D4D4",
+      "brightBlack": "#808080",
+      "brightRed": "#F44747",
+      "brightGreen": "#6A9955",
+      "brightYellow": "#FFFA72",
+      "brightBlue": "#9CDCFE",
+      "brightPurple": "#DDB6F2",
+      "brightCyan": "#4EC9B0",
+      "brightWhite": "#FFFFFF"
+    }
+  ],
+
+  "copyOnSelect": false,
+  "theme": "dark",
+  "useAcrylicInTabRow": true,
+  "tabWidthMode": "equal"
+}
