@@ -11,10 +11,10 @@ sudo apt install -y \
   wget \
   build-essential \
   zsh \
-  fzf \
+  #fzf \
   ripgrep \
-  bat \
-  neovim \
+  #bat \
+  #neovim \
   unzip \
   #python3 \
   #python3-pip \
