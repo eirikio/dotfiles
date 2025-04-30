@@ -47,7 +47,15 @@ if ($wslList -notmatch "Ubuntu") {
 
     # Schedule bootstrap-windows.ps1 to run after reboot (as admin)
     $bootstrapWin = "$env:USERPROFILE\dotfiles\Scripts\bootstrap-windows.ps1"
-    schtasks /Create /TN "BootstrapWindows" /TR "powershell.exe -ExecutionPolicy Bypass -File `"$bootstrapWin`"" /SC ONLOGON /RL HIGHEST /F
+    $escapedBootstrap = $bootstrapWin.Replace('\', '\\')  # escape backslashes for CMD
+
+    schtasks /Create `
+      /TN "BootstrapWindows" `
+      /TR "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$escapedBootstrap`"" `
+      /SC ONLOGON `
+      /RL HIGHEST `
+      /RU "$env:USERNAME" `
+      /F
 
     Restart-Computer
     exit
@@ -56,7 +64,15 @@ if ($wslList -notmatch "Ubuntu") {
 
     # Schedule bootstrap-windows.ps1 to run (if not already)
     $bootstrapWin = "$env:USERPROFILE\dotfiles\Scripts\bootstrap-windows.ps1"
-    schtasks /Create /TN "BootstrapWindows" /TR "powershell.exe -ExecutionPolicy Bypass -File `"$bootstrapWin`"" /SC ONLOGON /RL HIGHEST /F
+    $escapedBootstrap = $bootstrapWin.Replace('\', '\\')  # escape backslashes for CMD
+
+    schtasks /Create `
+      /TN "BootstrapWindows" `
+      /TR "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$escapedBootstrap`"" `
+      /SC ONLOGON `
+      /RL HIGHEST `
+      /RU "$env:USERNAME" `
+      /F
 
     Restart-Computer
     exit
