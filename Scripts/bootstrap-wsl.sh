@@ -28,34 +28,33 @@ sudo usermod -aG docker $USER
 # --- Set up Starship prompt ---
 curl -sS https://starship.rs/install.sh | sh -s -- -y
 
-# --- Clone dotfiles repo if not already present ---
+# --- Clone dotfiles if not already present ---
 DOTFILES=~/dotfiles
 if [ ! -d "$DOTFILES" ]; then
   git clone https://github.com/eirikio/dotfiles.git "$DOTFILES"
   echo "✅ Cloned dotfiles repo"
 fi
 
-# --- Link .zshrc from dotfiles ---
-ZSHRC="$HOME/.zshrc"
-if [ -f "$DOTFILES/.zshrc" ]; then
-  rm -f "$ZSHRC"
-  ln -s "$DOTFILES/.zshrc" "$ZSHRC"
-  echo "✅ Linked .zshrc from dotfiles"
-fi
+# --- Copy .zshrc to home ---
+cp "$DOTFILES/.zshrc" ~/.zshrc
+echo "✅ Copied .zshrc to home"
 
 # --- Create scripts folder and copy publish.sh ---
 mkdir -p ~/scripts
-if [ -f "$DOTFILES/publish.sh" ]; then
-  cp "$DOTFILES/publish.sh" ~/scripts/
-  chmod +x ~/scripts/publish.sh
-  echo "✅ Copied publish.sh to ~/scripts"
-fi
+cp "$DOTFILES/publish.sh" ~/scripts/
+chmod +x ~/scripts/publish.sh
+echo "✅ Copied publish.sh to ~/scripts"
 
-# --- Add alias if not already present ---
-if ! grep -q 'alias publish_project=' "$ZSHRC"; then
-  echo 'alias publish_project="$HOME/scripts/publish.sh"' >> "$ZSHRC"
+# --- Add alias to .zshrc if not already present ---
+if ! grep -q 'alias publish_project=' ~/.zshrc; then
+  echo 'alias publish_project="$HOME/scripts/publish.sh"' >> ~/.zshrc
   echo "✅ Alias added to .zshrc"
 fi
+
+# --- Optional: remove the repo ---
+rm -rf "$DOTFILES"
+echo "🧹 Removed dotfiles repo after setup"
+
 
 # --- Set Zsh as default shell ---
 chsh -s $(which zsh)
