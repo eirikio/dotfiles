@@ -1,94 +1,47 @@
-# bootstrap-windows.ps1
 Write-Host "=== Running Windows Bootstrap Script ==="
 
-# Install PowerToys
+# --- Install Applications via Winget ---
 winget install Microsoft.PowerToys -e --id Microsoft.PowerToys
-
-# Install Brave Browser
 winget install Brave.Brave -e
-
-# Optional: Uninstall Microsoft Edge (Edge is deeply integrated; uninstall is discouraged)
-# winget uninstall Microsoft.Edge -e
-
-# Install Git for Windows (optional if you just use WSL Git)
 winget install Git.Git -e
-
-# Install Notepad++ (optional)
-# winget install Notepad++.Notepad++ -e
-
-# Install Windows Terminal (usually preinstalled)
 winget install Microsoft.WindowsTerminal -e
-
-# Install Discord
 winget install Discord.Discord -e
-
-# Install Spotify
 winget install Spotify.Spotify -e
-
-# Install Steam
 winget install Valve.Steam -e
-
-# Install Battle.net
 winget install Blizzard.BattleNet -e
+# winget install Notepad++.Notepad++ -e  # Optional
 
-# Tweak Windows settings (examples)
-# Enable long paths
+# --- Tweak Windows Settings ---
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWord -Force
-
-# Turn off fast startup
 powercfg /hibernate off
 
-# Set up Windows Terminal profiles (example using JSON patching)
-
-# Path to settings file
-$settingsPath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-
-# Backup existing settings
-Copy-Item $settingsPath "$settingsPath.bak"
-
-# Load current settings
-$json = Get-Content $settingsPath | ConvertFrom-Json
-
-# Define custom WSL profile
-$wslProfile = @{
-    name = "WSL Ubuntu"
-    commandline = "wsl.exe"
-    startingDirectory = "//wsl$/Ubuntu/home/$env:USERNAME"
-    fontFace = "FiraCode Nerd Font"
-    hidden = $false
-    colorScheme = "Campbell"
-}
-
-# Add WSL profile if not already present
-$existing = $json.profiles.list | Where-Object { $_.name -eq "WSL Ubuntu" }
-if (-not $existing) {
-    $json.profiles.list += $wslProfile
-}
-
-# Save back to file
-$json | ConvertTo-Json -Depth 100 | Set-Content -Path $settingsPath -Force
-
-Write-Host "✅ Windows Terminal WSL profile configured"
-
-# === Apply Windows Terminal settings.json ===
-
-# Set your dotfiles path (adjust if different)
+# --- Set PowerShell Profile from Dotfiles ---
 $dotfilesPath = "$env:USERPROFILE\dotfiles"
+$sourceProfile = "$dotfilesPath\powershell\Microsoft.PowerShell_profile.ps1"
+$targetProfile = $PROFILE
+
+if (Test-Path $sourceProfile) {
+    Copy-Item $sourceProfile $targetProfile -Force
+    Write-Host "✅ PowerShell profile copied from dotfiles"
+} else {
+    Write-Host "⚠️ PowerShell profile not found in dotfiles"
+}
+
+# --- Apply Windows Terminal settings.json ---
 $terminalJsonSource = "$dotfilesPath\terminal\settings.json"
 $terminalJsonDest = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
-# Backup existing settings
 if (Test-Path $terminalJsonDest) {
     Copy-Item $terminalJsonDest "$terminalJsonDest.bak" -Force
-    Write-Host "📝 Backed up existing Windows Terminal settings."
+    Write-Host "📝 Backed up existing Windows Terminal settings"
 }
 
-# Copy new settings
 if (Test-Path $terminalJsonSource) {
-    Copy-Item $terminalJsonSource $terminalJsonDest -Force
-    Write-Host "✅ Applied new Windows Terminal settings from dotfiles."
+    # Replace placeholder username if needed
+    (Get-Content $terminalJsonSource) -replace '__USERNAME__', $env:USERNAME | Set-Content $terminalJsonDest
+    Write-Host "✅ Applied Windows Terminal settings from dotfiles"
 } else {
-    Write-Host "⚠️ settings.json not found at $terminalJsonSource. Skipping..."
+    Write-Host "⚠️ Terminal settings.json not found in dotfiles"
 }
 
 Write-Host "=== Windows Bootstrap Completed ==="
