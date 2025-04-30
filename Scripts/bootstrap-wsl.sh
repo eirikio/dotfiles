@@ -20,7 +20,8 @@ sudo apt install -y \
   python3-pip \
   nodejs \
   npm \
-  docker.io
+  docker.io \
+  wslu
 
 # --- Add user to Docker group ---
 sudo usermod -aG docker $USER
@@ -46,8 +47,14 @@ chmod +x ~/scripts/publish.sh
 echo "✅ Copied publish.sh to ~/scripts"
 
 # --- Add alias to .zshrc if not already present ---
-if ! grep -q 'alias publish_project=' ~/.zshrc; then
-  echo 'alias publish_project="$HOME/scripts/publish.sh"' >> ~/.zshrc
+if ! grep -q 'alias publish=' ~/.zshrc; then
+  echo 'alias publish="$HOME/scripts/publish.sh"' >> ~/.zshrc
+  echo "✅ Alias added to .zshrc"
+fi
+
+# --- Add WSL cheatsheet alias ---
+if ! grep -q 'alias cheatsheet=' ~/.zshrc; then
+  echo 'alias cheatsheet="wslview /mnt/c/Users/$USER/CheatSheet/index.html"' >> ~/.zshrc
   echo "✅ Alias added to .zshrc"
 fi
 
