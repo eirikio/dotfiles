@@ -16,12 +16,20 @@ sudo apt install -y \
   bat \
   neovim \
   unzip \
-  python3 \
-  python3-pip \
-  nodejs \
-  npm \
+  #python3 \
+  #python3-pip \
+  #nodejs \
+  #npm \
   docker.io \
   wslu
+
+# --- Install Node.js via NVM ---
+export NVM_VERSION="v0.39.7"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+source "$NVM_DIR/nvm.sh"
+nvm install --lts
+echo "✅ Installed Node.js via NVM"
 
 # --- Add user to Docker group ---
 sudo usermod -aG docker $USER
@@ -56,6 +64,18 @@ fi
 if ! grep -q 'alias cheatsheet=' ~/.zshrc; then
   echo 'alias cheatsheet="wslview /mnt/c/Users/$USER/CheatSheet/index.html"' >> ~/.zshrc
   echo "✅ Alias added to .zshrc"
+fi
+
+# --- Optional: Upgrade installed tools ---
+echo ""
+echo "🔄 Checking for WSL package updates..."
+sudo apt update && sudo apt upgrade -y
+echo "✅ System packages updated"
+
+# --- Optional: Upgrade NVM-managed Node (if needed) ---
+if command -v nvm &>/dev/null; then
+  nvm install --lts --reinstall-packages-from=current
+  echo "✅ Node.js LTS version updated via NVM"
 fi
 
 # --- Optional: remove the repo ---
