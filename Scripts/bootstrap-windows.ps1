@@ -1,3 +1,5 @@
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+
 Write-Host "=== Running Windows Bootstrap Script ==="
 
 # --- Ensure Git is installed before anything else ---
@@ -5,6 +7,14 @@ if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     Write-Host "📦 Git not found. Installing Git for Windows..."
     winget install Git.Git -e
     Write-Host "Git installed."
+
+    $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" +
+    $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "User")
+
+    if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+        Write-Host "Git is still not availible. Restart powershell and rerun script."
+        exit 1
+    }
 }
 
 # --- Define dotfiles path ---
