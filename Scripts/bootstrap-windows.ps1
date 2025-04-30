@@ -57,6 +57,15 @@ if (Test-Path $terminalJsonSource) {
     Write-Host "⚠️ Terminal settings.json not found in dotfiles"
 }
 
+# --- Copy CheatSheet to Windows home directory ---
+$cheatSheetSource = "$dotfilesPath\CheatSheet"
+$cheatSheetTarget = "$env:USERPROFILE\CheatSheet"
+
+if (Test-Path $cheatSheetSource) {
+    Copy-Item -Recurse -Force $cheatSheetSource $cheatSheetTarget
+    Write-Host "✅ Copied CheatSheet to $cheatSheetTarget"
+}
+
 # --- Optional: delete dotfiles repo ---
 try {
     Remove-Item -Recurse -Force $dotfilesPath
