@@ -27,25 +27,13 @@ Write-Host ""
 
 # Aliases & Functions
 #function commands {
-#    Start-Process "C:\Users\eirik\commands\index.html"
+#    Start-Process "$env:USERPROFILE\CheatSheet\index.html"
 #}
 #function codecommands {
-#    code C:\Users\eirik\commands\index.html
+#    code $env:USERPROFILE\CheatSheet\index.html
 #}
-# function wslhome {
-#    wsl.exe ~
-#}
-#function gohome {
-#    cd C:\Users\eirik
-#}
-function pedit {
-    notepad $profile
-    Write-Host ""
-    Write-Host "$ psave - To save changes" -ForegroundColor Green
-    Write-Host ""
-}
-function psave {
-    . $profile
-    Write-Host "Profile changes saved" -ForegroundColor Green
-    Write-Host ""
-}
+
+function wsl { wsl.exe ~ }
+function home { cd $env:USERPROFILE }
+function pedit { notepad $profile }
+function psave { . $profile Write-Host "Profile changes saved" -ForegroundColor Green }
