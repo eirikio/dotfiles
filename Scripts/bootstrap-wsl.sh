@@ -3,10 +3,8 @@ set -e
 
 echo "=== Running WSL Bootstrap Script ==="
 
-# Update and upgrade packages
+# --- Update and install packages ---
 sudo apt update && sudo apt upgrade -y
-
-# Install common dev tools
 sudo apt install -y \
   git \
   curl \
@@ -21,50 +19,45 @@ sudo apt install -y \
   python3 \
   python3-pip \
   nodejs \
-  npm
+  npm \
+  docker.io
 
-# Optional: Install Docker CLI (Docker Desktop must be installed on Windows)
-sudo apt install -y docker.io
+# --- Add user to Docker group ---
 sudo usermod -aG docker $USER
 
-# Set up Starship prompt
+# --- Set up Starship prompt ---
 curl -sS https://starship.rs/install.sh | sh -s -- -y
 
-# Add Starship to .zshrc
-if ! grep -q 'eval "$(starship init zsh)"' ~/.zshrc; then
-  echo 'eval "$(starship init zsh)"' >> ~/.zshrc
+# --- Clone dotfiles repo if not already present ---
+DOTFILES=~/dotfiles
+if [ ! -d "$DOTFILES" ]; then
+  git clone https://github.com/eirikio/dotfiles.git "$DOTFILES"
+  echo "✅ Cloned dotfiles repo"
 fi
 
-# Create ~/dev folder
-mkdir -p ~/dev
+# --- Link .zshrc from dotfiles ---
+ZSHRC="$HOME/.zshrc"
+if [ -f "$DOTFILES/.zshrc" ]; then
+  rm -f "$ZSHRC"
+  ln -s "$DOTFILES/.zshrc" "$ZSHRC"
+  echo "✅ Linked .zshrc from dotfiles"
+fi
 
-# Clone dotfiles (example, replace with your actual repo)
-git clone https://github.com/eirikio/dotfiles.git ~/dotfiles
+# --- Create scripts folder and copy publish.sh ---
+mkdir -p ~/scripts
+if [ -f "$DOTFILES/publish.sh" ]; then
+  cp "$DOTFILES/publish.sh" ~/scripts/
+  chmod +x ~/scripts/publish.sh
+  echo "✅ Copied publish.sh to ~/scripts"
+fi
 
-# Set Zsh as default shell
+# --- Add alias if not already present ---
+if ! grep -q 'alias publish_project=' "$ZSHRC"; then
+  echo 'alias publish_project="$HOME/scripts/publish.sh"' >> "$ZSHRC"
+  echo "✅ Alias added to .zshrc"
+fi
+
+# --- Set Zsh as default shell ---
 chsh -s $(which zsh)
 
-# Create a basic .zshrc if it doesn't exist
-ZSHRC=~/.zshrc
-if [ ! -f "$ZSHRC" ]; then
-  touch "$ZSHRC"
-fi
-
-# Add Starship prompt if not already present
-if ! grep -q 'eval "$(starship init zsh)"' "$ZSHRC"; then
-  echo 'eval "$(starship init zsh)"' >> "$ZSHRC"
-fi
-
-# Add useful aliases
-cat << 'EOF' >> "$ZSHRC"
-
-# === Custom Aliases ===
-alias ll='ls -alF'
-alias gs='git status'
-alias publish_project="$HOME/dotfiles/Scripts/publish.sh"
-EOF
-
-echo "✅ .zshrc configured"
-
-echo "=== WSL Bootstrap Completed ==="
-echo "Restart your shell or run: exec zsh"
+echo "✅ WSL Bootstrap Completed. Run: exec zsh or restart shell"
