@@ -1,6 +1,3 @@
-# --- Allow script to run without manual ExecutionPolicy setup ---
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
-
 Write-Host "`n=== Running Windows Bootstrap Script ===`n"
 
 # --- Ensure Git is installed before anything else ---
@@ -102,7 +99,7 @@ if (Test-Path $cheatSheetSource) {
 }
 
 # --- Move Windows 11 Start Menu to the left (like classic Windows)
-Write-Host "🪟 Positioning Start button to the left..."
+Write-Host "Positioning Start button to the left..."
 New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
                  -Name "TaskbarAl" -Value 0 -PropertyType DWord -Force
 
