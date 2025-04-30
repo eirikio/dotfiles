@@ -51,11 +51,18 @@ if (Test-Path $terminalJsonDest) {
 }
 
 if (Test-Path $terminalJsonSource) {
-    # Replace __USERNAME__ with actual username in settings.json
     (Get-Content $terminalJsonSource) -replace '__USERNAME__', $env:USERNAME | Set-Content $terminalJsonDest
     Write-Host "✅ Applied Windows Terminal settings from dotfiles"
 } else {
     Write-Host "⚠️ Terminal settings.json not found in dotfiles"
+}
+
+# --- Optional: delete dotfiles repo ---
+try {
+    Remove-Item -Recurse -Force $dotfilesPath
+    Write-Host "🧹 Removed dotfiles repo after setup"
+} catch {
+    Write-Host "⚠️ Failed to remove dotfiles repo: $_"
 }
 
 Write-Host "=== ✅ Windows Bootstrap Completed ==="
