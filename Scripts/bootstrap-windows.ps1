@@ -1,56 +1,45 @@
 Write-Host "`n=== Running Windows Bootstrap Script ===`n"
 
 # --- Ensure Git is installed before anything else ---
-if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-    Write-Host "Git not found. Installing Git for Windows..."
-    winget install Git.Git -e
-    Write-Host "Git installed."
+#if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+#    Write-Host "Git not found. Installing Git for Windows..."
+#    winget install Git.Git -e
+#    Write-Host "Git installed."
 
     # Refresh PATH so Git is immediately available
-    $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" +
-                [System.Environment]::GetEnvironmentVariable("PATH", "User")
+#    $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" +
+#                [System.Environment]::GetEnvironmentVariable("PATH", "User")
 
-    if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-        Write-Host "Git is still not available. Please restart PowerShell and rerun this script."
-        exit 1
-    }
-}
+#    if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+#        Write-Host "Git is still not available. Please restart PowerShell and rerun this script."
+#        exit 1
+#    }
+#}
 
 # --- Define dotfiles path ---
 $dotfilesPath = "$env:USERPROFILE\dotfiles"
 
 # --- Clone dotfiles repo if not already present ---
-if (-not (Test-Path $dotfilesPath)) {
-    Write-Host "Cloning dotfiles repo..."
-    git clone https://github.com/eirikio/dotfiles.git $dotfilesPath
+#if (-not (Test-Path $dotfilesPath)) {
+#    Write-Host "Cloning dotfiles repo..."
+#    git clone https://github.com/eirikio/dotfiles.git $dotfilesPath
 
-    if (-not (Test-Path $dotfilesPath)) {
-        Write-Host "Failed to clone dotfiles repo. Check your internet connection or the repo URL."
-        exit 1
-    }
-    Write-Host "dotfiles cloned to $dotfilesPath"
-}
+#    if (-not (Test-Path $dotfilesPath)) {
+#        Write-Host "Failed to clone dotfiles repo. Check your internet connection or the repo URL."
+#        exit 1
+#    }
+#    Write-Host "dotfiles cloned to $dotfilesPath"
+#}
 
 # --- Install Applications via Winget ---
 $apps = @(
     "Microsoft.PowerToys",
     "Brave.Brave",
-    "Git.Git",
+#    "Git.Git",
     "Microsoft.WindowsTerminal",
     "Discord.Discord",
     "Delugia.Nerd.Font"
 )
-
-
-
-# Skip Spotify if running elevated
-$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
-
-if (-not $isAdmin) {
-    $apps += "Spotify.Spotify"
-} else {
-    Write-Host "Skipping Spotify install (can't run in Administrator context)."
-}
 
 foreach ($app in $apps) {
     Write-Host "Installing $app..."
@@ -109,26 +98,26 @@ Stop-Process -Name explorer -Force
 Start-Process explorer
 
 # --- Install WSL + Ubuntu (non-admin only) ---
-if (-not $isAdmin) {
-    Write-Host "Checking for WSL..."
-    if (-not (Get-Command wsl -ErrorAction SilentlyContinue)) {
-        Write-Host "WSL command not found. Your system might not support it."
-        exit 1
-    }
+#if (-not $isAdmin) {
+#    Write-Host "Checking for WSL..."
+#    if (-not (Get-Command wsl -ErrorAction SilentlyContinue)) {
+#        Write-Host "WSL command not found. Your system might not support it."
+#        exit 1
+#    }
 
-    $wslList = wsl --list --quiet 2>$null
-    if ($wslList -notmatch "Ubuntu") {
-        Write-Host "Installing WSL + Ubuntu..."
-        wsl --install -d Ubuntu
-        Write-Host "Ubuntu installation started. Reboot when prompted."
-        Pause
-        exit 0
-    } else {
-        Write-Host "Ubuntu already installed in WSL"
-    }
-} else {
-    Write-Host "Skipping WSL installation (requires non-admin context)."
-}
+#    $wslList = wsl --list --quiet 2>$null
+#    if ($wslList -notmatch "Ubuntu") {
+#        Write-Host "Installing WSL + Ubuntu..."
+#        wsl --install -d Ubuntu
+#        Write-Host "Ubuntu installation started. Reboot when prompted."
+#        Pause
+#        exit 0
+#    } else {
+#        Write-Host "Ubuntu already installed in WSL"
+#    }
+#} else {
+#    Write-Host "Skipping WSL installation (requires non-admin context)."
+#}
 
 Write-Host "`n=== Windows Bootstrap Completed ===`n"
 
@@ -136,5 +125,5 @@ Write-Host "`n=== Windows Bootstrap Completed ===`n"
 $wslBootstrap = "wsl.exe bash -c '~/dotfiles/Scripts/bootstrap-wsl.sh'"
 schtasks /Create /TN "BootstrapWSL" /TR $wslBootstrap /SC ONLOGON /RL LIMITED /F
 
-Write-Host "✅ Scheduled WSL bootstrap. Rebooting..."
+Write-Host "Scheduled WSL bootstrap. Rebooting..."
 Restart-Computer
