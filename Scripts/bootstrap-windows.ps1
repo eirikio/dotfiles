@@ -131,3 +131,10 @@ if (-not $isAdmin) {
 }
 
 Write-Host "`n=== Windows Bootstrap Completed ===`n"
+
+# --- Schedule bootstrap-wsl.sh to run from WSL after reboot ---
+$wslBootstrap = "wsl.exe bash -c '~/dotfiles/Scripts/bootstrap-wsl.sh'"
+schtasks /Create /TN "BootstrapWSL" /TR $wslBootstrap /SC ONLOGON /RL LIMITED /F
+
+Write-Host "✅ Scheduled WSL bootstrap. Rebooting..."
+Restart-Computer
