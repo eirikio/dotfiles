@@ -1,12 +1,4 @@
-1. Open Terminal as normal
+1. Open Terminal (not as admin)
 ```
-wsl --install -d Ubuntu
-```
-
-2. Reboot PC
-
-3. Open Terminal as admin
-```
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 powershell.exe -ExecutionPolicy Bypass -File $env:USERPROFILE\Desktop.\master-bootstrap.ps1
 ```
