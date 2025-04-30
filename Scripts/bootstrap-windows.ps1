@@ -50,7 +50,7 @@ $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIde
 if (-not $isAdmin) {
     $apps += "Spotify.Spotify"
 } else {
-    Write-Host "⚠️ Skipping Spotify install (can't run in Administrator context)."
+    Write-Host "Skipping Spotify install (can't run in Administrator context)."
 }
 
 foreach ($app in $apps) {
@@ -59,7 +59,7 @@ foreach ($app in $apps) {
 }
 
 # --- Tweak Windows Settings ---
-Write-Host "⚙️ Tuning Windows settings..."
+Write-Host "Tuning Windows settings..."
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWord -Force
 powercfg /hibernate off
 
@@ -100,10 +100,6 @@ if (Test-Path $cheatSheetSource) {
 } else {
     Write-Host "CheatSheet folder not found in dotfiles"
 }
-
-# --- Inform user about Steam and Battle.net install paths ---
-Write-Host "`nNOTE: Steam and Battle.net do not support custom install paths via winget."
-Write-Host "Manually set their install directories to E:\\ the first time you open them."
 
 # --- Optionally remove the dotfiles repo ---
 try {
