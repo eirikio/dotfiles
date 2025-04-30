@@ -7,6 +7,6 @@ wsl --install -d Ubuntu
 
 3. Open Terminal as admin
 ```
-$ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-powershell.exe -ExecutionPolicy Bypass -File .$env:USERPROFILE\Desktop\master-bootstrap.ps1
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+powershell.exe -ExecutionPolicy Bypass -File $env:USERPROFILE\Desktop.\master-bootstrap.ps1
 ```
