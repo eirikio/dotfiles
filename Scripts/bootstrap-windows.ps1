@@ -41,6 +41,28 @@ $apps = @(
     "Delugia.Nerd.Font"
 )
 
+# --- Install WSL + Ubuntu (non-admin only) ---
+if (-not $isAdmin) {
+    Write-Host "Checking for WSL..."
+    if (-not (Get-Command wsl -ErrorAction SilentlyContinue)) {
+        Write-Host "WSL command not found. Your system might not support it."
+        exit 1
+    }
+
+    $wslList = wsl --list --quiet 2>$null
+    if ($wslList -notmatch "Ubuntu") {
+        Write-Host "Installing WSL + Ubuntu..."
+        wsl --install -d Ubuntu
+        Write-Host "Ubuntu installation started. Reboot when prompted."
+        Pause
+        exit 0
+    } else {
+        Write-Host "Ubuntu already installed in WSL"
+    }
+} else {
+    Write-Host "Skipping WSL installation (requires non-admin context)."
+}
+
 # Skip Spotify if running elevated
 $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
@@ -69,23 +91,6 @@ if (Test-Path $sourceProfile) {
     Write-Host "PowerShell profile copied from dotfiles"
 } else {
     Write-Host "PowerShell profile not found in dotfiles"
-}
-
-# --- Install WSL and Ubuntu (if not already installed) ---
-if (-not (Get-Command wsl -ErrorAction SilentlyContinue)) {
-    Write-Host "WSL is not available on this system."
-    Write-Host "Please enable the Windows Subsystem for Linux feature manually and restart."
-    exit 1
-}
-
-# Check if Ubuntu is already installed
-$wslList = wsl --list --quiet
-if ($wslList -notcontains "Ubuntu") {
-    Write-Host "Installing WSL + Ubuntu..."
-    wsl --install -d Ubuntu
-    Write-Host "WSL + Ubuntu install initiated. A reboot may be required."
-} else {
-    Write-Host "Ubuntu already installed in WSL"
 }
 
 # --- Apply Windows Terminal settings.json ---
