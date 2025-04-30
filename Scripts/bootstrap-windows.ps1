@@ -72,20 +72,20 @@ if (Test-Path $sourceProfile) {
 }
 
 # --- Apply Windows Terminal settings.json ---
-$terminalJsonSource = "$dotfilesPath\terminal\settings.json"
-$terminalJsonDest = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+#$terminalJsonSource = "$dotfilesPath\terminal\settings.json"
+#$terminalJsonDest = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
-if (Test-Path $terminalJsonDest) {
-    Copy-Item $terminalJsonDest "$terminalJsonDest.bak" -Force
-    Write-Host "Backed up existing Windows Terminal settings"
-}
+#if (Test-Path $terminalJsonDest) {
+#    Copy-Item $terminalJsonDest "$terminalJsonDest.bak" -Force
+#    Write-Host "Backed up existing Windows Terminal settings"
+#}
 
-if (Test-Path $terminalJsonSource) {
-    (Get-Content $terminalJsonSource) -replace '__USERNAME__', $env:USERNAME | Set-Content $terminalJsonDest
-    Write-Host "Applied Windows Terminal settings from dotfiles"
-} else {
-    Write-Host "Terminal settings.json not found in dotfiles"
-}
+#if (Test-Path $terminalJsonSource) {
+#    (Get-Content $terminalJsonSource) -replace '__USERNAME__', $env:USERNAME | Set-Content $terminalJsonDest
+#    Write-Host "Applied Windows Terminal settings from dotfiles"
+#} else {
+#    Write-Host "Terminal settings.json not found in dotfiles"
+#}
 
 # --- Copy CheatSheet to home directory ---
 $cheatSheetSource = "$dotfilesPath\CheatSheet"
