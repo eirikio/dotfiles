@@ -20,7 +20,7 @@ sudo apt install -y \
   #python3-pip \
   #nodejs \
   #npm \
-  docker.io \
+  #docker.io \
   wslu
 
 # --- Install Node.js via NVM ---
