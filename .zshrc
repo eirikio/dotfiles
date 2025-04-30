@@ -103,8 +103,8 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="nano ~/.zshrc"
 alias zshcode="code ~/.zshrc"
 alias zshsource="source ~/.zshrc"
-alias commands="wslview /mnt/c/Users/eirik/commands/index.html"
-alias publishgit="/mnt/c/Users/eirik/Documents/Scripts/publish.sh"
+alias cheatsheet="wslview /mnt/c/Users/$USER/CheatSheet/index.html"
+alias publish="~/scripts/publish.sh"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Custom config
@@ -113,9 +113,8 @@ function gohome() {
     echo -e "\e[32mNow in Linux home:\e[0m $(pwd)"
 }
 
-function gowindows() {
-    cd /mnt/c/Users/eirik
-    echo -e "\e[34mNow in Windows home:\e[0m $(pwd)"
+function exit() { 
+    cd /mnt/c/Users/$USER 
 }
 
 function rebuildhistory() {
