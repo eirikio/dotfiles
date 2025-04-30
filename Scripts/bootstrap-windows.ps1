@@ -101,6 +101,14 @@ if (Test-Path $cheatSheetSource) {
     Write-Host "CheatSheet folder not found in dotfiles"
 }
 
+# --- Move Windows 11 Start Menu to the left (like classic Windows)
+Write-Host "🪟 Positioning Start button to the left..."
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+                 -Name "TaskbarAl" -Value 0 -PropertyType DWord -Force
+
+Stop-Process -Name explorer -Force
+Start-Process explorer
+
 # --- Optionally remove the dotfiles repo ---
 try {
     Remove-Item -Recurse -Force $dotfilesPath
