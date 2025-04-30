@@ -32,7 +32,7 @@ nvm install --lts
 echo "✅ Installed Node.js via NVM"
 
 # --- Add user to Docker group ---
-sudo usermod -aG docker $USER
+#sudo usermod -aG docker $USER
 
 # --- Set up Starship prompt ---
 curl -sS https://starship.rs/install.sh | sh -s -- -y
