@@ -71,21 +71,38 @@ if (Test-Path $sourceProfile) {
     Write-Host "PowerShell profile not found in dotfiles"
 }
 
+# --- Install WSL and Ubuntu (if not already installed) ---
+if (-not (Get-Command wsl -ErrorAction SilentlyContinue)) {
+    Write-Host "❌ WSL is not available on this system."
+    Write-Host "Please enable the Windows Subsystem for Linux feature manually and restart."
+    exit 1
+}
+
+# Check if Ubuntu is already installed
+$wslList = wsl --list --quiet
+if ($wslList -notcontains "Ubuntu") {
+    Write-Host "📦 Installing WSL + Ubuntu..."
+    wsl --install -d Ubuntu
+    Write-Host "✅ WSL + Ubuntu install initiated. A reboot may be required."
+} else {
+    Write-Host "✅ Ubuntu already installed in WSL"
+}
+
 # --- Apply Windows Terminal settings.json ---
-#$terminalJsonSource = "$dotfilesPath\terminal\settings.json"
-#$terminalJsonDest = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+$terminalJsonSource = "$dotfilesPath\terminal\settings.json"
+$terminalJsonDest = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
-#if (Test-Path $terminalJsonDest) {
-#    Copy-Item $terminalJsonDest "$terminalJsonDest.bak" -Force
-#    Write-Host "Backed up existing Windows Terminal settings"
-#}
+if (Test-Path $terminalJsonDest) {
+    Copy-Item $terminalJsonDest "$terminalJsonDest.bak" -Force
+    Write-Host "Backed up existing Windows Terminal settings"
+}
 
-#if (Test-Path $terminalJsonSource) {
-#    (Get-Content $terminalJsonSource) -replace '__USERNAME__', $env:USERNAME | Set-Content $terminalJsonDest
-#    Write-Host "Applied Windows Terminal settings from dotfiles"
-#} else {
-#    Write-Host "Terminal settings.json not found in dotfiles"
-#}
+if (Test-Path $terminalJsonSource) {
+    (Get-Content $terminalJsonSource) -replace '__USERNAME__', $env:USERNAME | Set-Content $terminalJsonDest
+    Write-Host "Applied Windows Terminal settings from dotfiles"
+} else {
+    Write-Host "Terminal settings.json not found in dotfiles"
+}
 
 # --- Copy CheatSheet to home directory ---
 $cheatSheetSource = "$dotfilesPath\CheatSheet"
