@@ -41,9 +41,17 @@ $apps = @(
     "Git.Git",
     "Microsoft.WindowsTerminal",
     "Discord.Discord",
-    "Spotify.Spotify",
     "Delugia.Nerd.Font"
 )
+
+# Skip Spotify if running elevated
+$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+
+if (-not $isAdmin) {
+    $apps += "Spotify.Spotify"
+} else {
+    Write-Host "⚠️ Skipping Spotify install (can't run in Administrator context)."
+}
 
 foreach ($app in $apps) {
     Write-Host "Installing $app..."
