@@ -89,6 +89,4 @@ chsh -s $(which zsh)
 # Cleanup scheduled task
 powershell.exe schtasks /Delete /TN "BootstrapWSL" /F
 
-echo "Bootstrap complete. You are ready to go!"
-
 echo "WSL Bootstrap Completed. Run: exec zsh or restart shell"
