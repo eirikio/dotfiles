@@ -73,7 +73,7 @@ if (Test-Path $sourceProfile) {
 
 # --- Install WSL and Ubuntu (if not already installed) ---
 if (-not (Get-Command wsl -ErrorAction SilentlyContinue)) {
-    Write-Host "❌ WSL is not available on this system."
+    Write-Host "WSL is not available on this system."
     Write-Host "Please enable the Windows Subsystem for Linux feature manually and restart."
     exit 1
 }
@@ -81,11 +81,11 @@ if (-not (Get-Command wsl -ErrorAction SilentlyContinue)) {
 # Check if Ubuntu is already installed
 $wslList = wsl --list --quiet
 if ($wslList -notcontains "Ubuntu") {
-    Write-Host "📦 Installing WSL + Ubuntu..."
+    Write-Host "Installing WSL + Ubuntu..."
     wsl --install -d Ubuntu
-    Write-Host "✅ WSL + Ubuntu install initiated. A reboot may be required."
+    Write-Host "WSL + Ubuntu install initiated. A reboot may be required."
 } else {
-    Write-Host "✅ Ubuntu already installed in WSL"
+    Write-Host "Ubuntu already installed in WSL"
 }
 
 # --- Apply Windows Terminal settings.json ---
