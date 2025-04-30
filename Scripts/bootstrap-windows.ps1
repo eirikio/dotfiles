@@ -9,7 +9,7 @@ if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     Write-Host "Git installed."
 
     $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" +
-    $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "User")
+                 [System.Environment]::GetEnvironmentVariable("PATH", "User")
 
     if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
         Write-Host "Git is still not availible. Restart powershell and rerun script."
