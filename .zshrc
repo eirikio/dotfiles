@@ -108,10 +108,6 @@ alias publish="~/scripts/publish.sh"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Custom config
-function gohome() {
-    cd ~
-    echo -e "\e[32mNow in Linux home:\e[0m $(pwd)"
-}
 
 function exit() { 
     cd /mnt/c/Users/$USER 
@@ -123,6 +119,7 @@ function rebuildhistory() {
     fc -R ~/.zsh_history
     echo "History rebuilt successfully!"
 }
+
 function aliases() {
     keys=("gohome - Go to Linux home" "gowindows - Go to Windows home" "commands - Open commands cheatsheet" "zshcode - code ~/.zshrc" "zshconfig - nano ~/.zshrc" "zshsource - source ~/.zshrc")
 
@@ -144,6 +141,7 @@ function typer() {
     done
     printf "\n"
 }
+
 function toiletMsg() {
     toilet -f slant -F gay UwU - WSL
 }
@@ -166,11 +164,3 @@ gm_message
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# pnpm
-export PNPM_HOME="/home/eirik/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
