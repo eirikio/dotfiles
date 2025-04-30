@@ -1,11 +1,11 @@
-Open Terminal as normal
+1. Open Terminal as normal
 ```
 wsl --install -d Ubuntu
 ```
 
-Reboot PC
+2. Reboot PC
 
-Open Terminal as admin
+3. Open Terminal as admin
 ```
 $ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
