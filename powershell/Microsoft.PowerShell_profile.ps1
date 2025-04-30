@@ -1,0 +1,61 @@
+Write-Host ""
+$timenow = get-date
+$timecomparisonMorning = Get-Date -Hour 12 -Minute 0
+$timecomparisonEvening = Get-Date -Hour 20 -Minute 0
+
+if ($timenow.TimeOfDay -lt $timecomparisonMorning.TimeOfDay)
+{
+	Write-Host "GM, $env:USERNAME!" -ForegroundColor Green
+}
+elseif ($timenow.TimeOfDay -gt $timecomparisonEvening.TimeOfDay)
+{
+	Write-Host "Good evening, $env:USERNAME!" -ForegroundColor Green
+}
+else
+{
+	Write-Host "Greetings, $env:USERNAME!" -ForegroundColor Green
+}
+Write-Host "Today is: $(Get-Date)" -ForegroundColor White
+Write-Host ""
+Write-Host "PowerShell = I'm managing my Windows computer." -ForegroundColor Blue
+Write-Host "wsl = I'm in Linux, doing my dev work." -ForegroundColor Blue
+Write-Host ""
+Write-Host "$ commands - Command line cheatsheet" -ForegroundColor Cyan
+Write-Host "$ aliases - View list of aliases" -ForegroundColor Cyan
+Write-Host "$ wsl - Oh My Zsh" -ForegroundColor Cyan
+Write-Host ""
+
+# Import the Chocolatey Profile that contains the necessary code to enable
+# tab-completions to function for `choco`.
+# Be aware that if you are missing these lines from your profile, tab completion
+# for `choco` will not function.
+# See https://ch0.co/tab-completion for details.
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
+
+# Aliases & Functions
+function commands {
+    Start-Process "C:\Users\eirik\commands\index.html"
+}
+function codecommands {
+    code C:\Users\eirik\commands\index.html
+}
+function wslhome {
+    wsl.exe ~
+}
+function gohome {
+    cd C:\Users\eirik
+}
+function profile {
+    notepad $profile
+    Write-Host ""
+    Write-Host "$ psave - To save changes" -ForegroundColor Green
+    Write-Host ""
+}
+function psave {
+    . $profile
+    Write-Host "Profile changes saved" -ForegroundColor Green
+    Write-Host ""
+}
