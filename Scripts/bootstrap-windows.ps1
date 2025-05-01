@@ -35,9 +35,10 @@ $dotfilesPath = "$env:USERPROFILE\dotfiles"
 $apps = @(
     "Microsoft.PowerToys",
     "Brave.Brave",
-#    "Git.Git",
     "Microsoft.WindowsTerminal",
     "Discord.Discord",
+    "RARLab.WinRAR",
+    "Docker.DockerDesktop",
     "Delugia.Nerd.Font"
 )
 
