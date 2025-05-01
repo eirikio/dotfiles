@@ -11,24 +11,27 @@ sudo apt install -y \
   wget \
   build-essential \
   zsh \
-  #fzf \
+  figlet \
+  toilet \
+  jp2a \
+  fzf \
   ripgrep \
-  #bat \
+  bat \
   #neovim \
   unzip \
   #python3 \
   #python3-pip \
-  #nodejs \
-  #npm \
-  #docker.io \
   wslu
 
 # --- Install Node.js via NVM ---
-export NVM_VERSION="v0.39.7"
+export NVM_VERSION="v0.40.0"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
-source "$NVM_DIR/nvm.sh"
+\. "$HOME/.nvm/nvm.sh"
 nvm install --lts
+nove -v
+nvm current
+npm -v
 echo "Installed Node.js via NVM"
 
 # --- Add user to Docker group ---
