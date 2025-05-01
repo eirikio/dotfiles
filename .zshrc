@@ -124,7 +124,7 @@ function rebuildhistory() {
 function aliases() {
     keys=(
 	"exit - Switch to Windows Terminal C:\Users\$USER\" 
-	"commands - Open cheatsheet" 
+	"cheatsheet - Open cheatsheet" 
 	"zshcode - code ~/.zshrc" 
 	"zshconfig - nano ~/.zshrc" 
 	"zshsource - source ~/.zshrc" 
