@@ -104,6 +104,7 @@ alias zshconfig="nano ~/.zshrc"
 alias zshcode="code ~/.zshrc"
 alias zshsource="source ~/.zshrc"
 alias cheatsheet="wslview /mnt/c/Users/$USER/CheatSheet/index.html"
+alias bq="echo \`"
 alias publish="~/scripts/publish.sh"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
@@ -121,7 +122,15 @@ function rebuildhistory() {
 }
 
 function aliases() {
-    keys=("exit - Switch to Windows Terminal C:\Users\$USER\" "commands - Open cheatsheet" "zshcode - code ~/.zshrc" "zshconfig - nano ~/.zshrc" "zshsource - source ~/.zshrc" "publish - initiate and publish directory to github")
+    keys=(
+	"exit - Switch to Windows Terminal C:\Users\$USER\" 
+	"commands - Open cheatsheet" 
+	"zshcode - code ~/.zshrc" 
+	"zshconfig - nano ~/.zshrc" 
+	"zshsource - source ~/.zshrc" 
+	"publish - initiate and publish directory to github"
+	"bq - backtick"
+)
 
     echo ""
     local i=1
@@ -143,7 +152,7 @@ function typer() {
 }
 
 function toiletMsg() {
-    toilet -f slant -F gay UwU - WSL
+    toilet -f slant -F T E R M I N A L
 }
 
 function gm_message() {
@@ -155,7 +164,7 @@ echo -e "\e[37m"
 typer "$(date +"%A, %B %d. %Y")"
 echo ""
 typer "$(echo -e "\e[37m$(date +"[%H:%M]")\e[32m GM, eirik!\e[0m")"
-#typer "$(echo -e "\e[37m$(date +"[%H:%M]")\e[32m $ \e[33mcommands\e[0m - Command line cheatsheet!\e[0m")"
+#typer "$(echo -e "\e[37m$(date +"[%H:%M]")\e[32m $ \e[33mcheatsheet\e[0m - Command line cheatsheet!\e[0m")"
 typer "$(echo -e "\e[37m$(date +"[%H:%M]")\e[32m $ \e[33maliases\e[0m - View aliases!\e[0m")"
 echo ""
 }
