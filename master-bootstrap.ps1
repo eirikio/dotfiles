@@ -9,10 +9,10 @@ function Elevate-Script {
     $argList = @(
         "-ExecutionPolicy", "Bypass",
         "-NoProfile",
-        "-File", "`"$scriptPath`"",
+        "-File", $scriptPath,
         "-Stage", "Admin"
     )
-    
+
     try {
         Start-Process powershell.exe -Verb RunAs -ArgumentList $argList -WindowStyle Hidden
     } catch {
