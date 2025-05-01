@@ -5,10 +5,24 @@ param (
 function Elevate-Script {
     $scriptPath = $MyInvocation.MyCommand.Definition
     $logFile = "$env:USERPROFILE\bootstrap-admin.log"
-    $args = "-ExecutionPolicy Bypass -NoProfile -File `"$scriptPath`" -Stage Admin *> `"$logFile`""
-    Start-Process powershell -Verb RunAs -ArgumentList $args
+    
+    $argList = @(
+        "-ExecutionPolicy", "Bypass",
+        "-NoProfile",
+        "-File", "`"$scriptPath`"",
+        "-Stage", "Admin"
+    )
+    
+    try {
+        Start-Process powershell.exe -Verb RunAs -ArgumentList $argList -WindowStyle Hidden
+    } catch {
+        Write-Host "Elevation failed: $_"
+        Pause
+    }
+
     exit
 }
+
 
 # --- Shared ---
 $dotfilesPath = "$env:USERPROFILE\dotfiles"
