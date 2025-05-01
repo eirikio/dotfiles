@@ -106,6 +106,7 @@ alias zshsource="source ~/.zshrc"
 alias cheatsheet="wslview /mnt/c/Users/$USER/CheatSheet/index.html"
 alias bq="echo \`"
 alias publish="~/scripts/publish.sh"
+alias bat="batcat"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Custom config
