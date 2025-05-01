@@ -53,11 +53,13 @@ if ($wslList -notmatch "Ubuntu") {
       /TN "BootstrapWindows" `
       /TR "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$escapedBootstrap`"" `
       /SC ONLOGON `
-#      /RL HIGHEST `
-#      /RU "$env:USERNAME" `
+      /RL HIGHEST `
+      /RU "$env:USERNAME" `
       /F
 
-    Restart-Computer
+      Pause
+
+#    Restart-Computer
     exit
 } else {
     Write-Host "Ubuntu is already installed. Skipping WSL install."
@@ -70,10 +72,11 @@ if ($wslList -notmatch "Ubuntu") {
       /TN "BootstrapWindows" `
       /TR "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$escapedBootstrap`"" `
       /SC ONLOGON `
-#      /RL HIGHEST `
-#      /RU "$env:USERNAME" `
+      /RL HIGHEST `
+      /RU "$env:USERNAME" `
       /F
 
-    Restart-Computer
+     Pause
+#    Restart-Computer
     exit
 }
