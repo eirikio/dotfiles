@@ -36,7 +36,7 @@ if ($Stage -eq "User") {
     Write-Host "Spotify installed`n"
 
     if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-        Write-Host "🔧 Git not found. Installing Git..."
+        Write-Host "Git not found. Installing Git..."
         winget install Git.Git -e
         Write-Host "Git installed`n"
     }
