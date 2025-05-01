@@ -38,6 +38,8 @@ $apps = @(
     "Microsoft.WindowsTerminal",
     "Discord.Discord",
     "RARLab.WinRAR",
+    "SteelSeries.GG"
+    "OBSProject.OBSStudio"
     "Docker.DockerDesktop",
     "Delugia.Nerd.Font"
 )
