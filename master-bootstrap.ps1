@@ -59,7 +59,7 @@ elseif ($Stage -eq "Admin") {
     # Create Windows bootstrap task
     schtasks /Create `
         /TN "BootstrapWindows" `
-        /TR "powershell.exe -ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -File `"$escapedBootstrap`"" `
+        /TR "WindowsTerminal.exe -ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -File `"$escapedBootstrap`"" `
         /SC ONLOGON `
         /F
 
