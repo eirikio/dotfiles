@@ -53,8 +53,8 @@ if ($wslList -notmatch "Ubuntu") {
       /TN "BootstrapWindows" `
       /TR "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$escapedBootstrap`"" `
       /SC ONLOGON `
-      /RL HIGHEST `
-      /RU "$env:USERNAME" `
+#      /RL HIGHEST `
+#      /RU "$env:USERNAME" `
       /F
 
     Write-Host "`nPress Enter to reboot, or Ctrl+C to cancel and review any errors..."
@@ -72,8 +72,8 @@ if ($wslList -notmatch "Ubuntu") {
       /TN "BootstrapWindows" `
       /TR "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$escapedBootstrap`"" `
       /SC ONLOGON `
-      /RL HIGHEST `
-      /RU "$env:USERNAME" `
+#      /RL HIGHEST `
+#      /RU "$env:USERNAME" `
       /F
 
     Write-Host "`nPress Enter to reboot, or Ctrl+C to cancel and review any errors..."
