@@ -39,7 +39,12 @@ if ($Stage -eq "User") {
         Write-Host "Git not found. Installing Git..."
         winget install Git.Git -e
         Write-Host "Git installed`n"
+
+        $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" +
+                    [System.Environment]::GetEnvironmentVariable("PATH", "User")
     }
+
+
 
     if (-not (Test-Path $dotfilesPath)) {
         Write-Host "Cloning dotfiles repo..."
