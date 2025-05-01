@@ -57,9 +57,10 @@ if ($wslList -notmatch "Ubuntu") {
       /RU "$env:USERNAME" `
       /F
 
+    Write-Host "`nPress Enter to reboot, or Ctrl+C to cancel and review any errors..."
     Pause
-#    Restart-Computer
-#    exit
+    Restart-Computer
+    exit
 } else {
     Write-Host "Ubuntu is already installed. Skipping WSL install."
 
@@ -75,7 +76,8 @@ if ($wslList -notmatch "Ubuntu") {
       /RU "$env:USERNAME" `
       /F
 
+    Write-Host "`nPress Enter to reboot, or Ctrl+C to cancel and review any errors..."
     Pause
-#    Restart-Computer
-#    exit
+    Restart-Computer
+    exit
 }
