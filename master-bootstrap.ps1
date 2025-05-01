@@ -3,7 +3,7 @@ param (
 )
 
 function Elevate-Script {
-    $scriptPath = $MyInvocation.MyCommand.Definition
+    $scriptPath = "$dotfilesPath\Scripts\bootstrap-windows.ps1"
     $argList = @(
         "-ExecutionPolicy", "Bypass",
         "-NoProfile",
