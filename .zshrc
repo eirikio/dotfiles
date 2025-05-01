@@ -121,7 +121,7 @@ function rebuildhistory() {
 }
 
 function aliases() {
-    keys=("gohome - Go to Linux home" "gowindows - Go to Windows home" "commands - Open commands cheatsheet" "zshcode - code ~/.zshrc" "zshconfig - nano ~/.zshrc" "zshsource - source ~/.zshrc")
+    keys=("exit - Switch to Windows Terminal C:\Users\$USER\" "commands - Open cheatsheet" "zshcode - code ~/.zshrc" "zshconfig - nano ~/.zshrc" "zshsource - source ~/.zshrc" "publish - initiate and publish directory to github")
 
     echo ""
     local i=1
@@ -161,6 +161,6 @@ echo ""
 }
 gm_message
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
