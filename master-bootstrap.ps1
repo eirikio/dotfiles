@@ -2,8 +2,13 @@ param (
     [string]$Stage = "User"
 )
 
+# --- Shared ---
+$dotfilesPath = "$env:USERPROFILE\dotfiles"
+$bootstrapWin = "$dotfilesPath\Scripts\bootstrap-windows.ps1"
+$escapedBootstrap = $bootstrapWin.Replace('\', '\\')
+
 function Elevate-Script {
-    $scriptPath = "$dotfilesPath\Scripts\bootstrap-windows.ps1"
+    param ($scriptPath)
     $argList = @(
         "-ExecutionPolicy", "Bypass",
         "-NoProfile",
@@ -21,11 +26,6 @@ function Elevate-Script {
 
     exit
 }
-
-# --- Shared ---
-$dotfilesPath = "$env:USERPROFILE\dotfiles"
-$bootstrapWin = "$dotfilesPath\Scripts\bootstrap-windows.ps1"
-$escapedBootstrap = $bootstrapWin.Replace('\', '\\')
 
 # --- STAGE 1: NON-ADMIN ---
 if ($Stage -eq "User") {
@@ -63,7 +63,7 @@ if ($Stage -eq "User") {
 
     Write-Host "`nElevating to admin to schedule Windows bootstrap..."
     Pause
-    Elevate-Script
+    Elevate-Script -scriptPath $bootstrapWin
 }
 
 # --- STAGE 2: ADMIN ---
