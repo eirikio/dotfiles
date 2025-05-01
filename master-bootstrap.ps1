@@ -18,7 +18,7 @@ function Elevate-Script {
 
     try {
         Write-Host "`nLaunching elevated script..."
-        Start-Process powershell.exe -Verb RunAs -ArgumentList $argList -WindowStyle Hidden
+        Start-Process "cmd.exe" -Verb RunAs -ArgumentList "/c start powershell.exe -ExecutionPolicy Bypass -NoProfile -File `"$scriptPath`" -Stage Admin"
     } catch {
         Write-Host "Elevation failed: $_"
         Pause
