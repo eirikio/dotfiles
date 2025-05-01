@@ -4,8 +4,6 @@ param (
 
 function Elevate-Script {
     $scriptPath = $MyInvocation.MyCommand.Definition
-    $logFile = "$env:USERPROFILE\bootstrap-admin.log"
-    
     $argList = @(
         "-ExecutionPolicy", "Bypass",
         "-NoProfile",
@@ -14,6 +12,7 @@ function Elevate-Script {
     )
 
     try {
+        Write-Host "`nLaunching elevated script..."
         Start-Process powershell.exe -Verb RunAs -ArgumentList $argList -WindowStyle Hidden
     } catch {
         Write-Host "Elevation failed: $_"
@@ -23,12 +22,12 @@ function Elevate-Script {
     exit
 }
 
-
 # --- Shared ---
 $dotfilesPath = "$env:USERPROFILE\dotfiles"
 $bootstrapWin = "$dotfilesPath\Scripts\bootstrap-windows.ps1"
 $escapedBootstrap = $bootstrapWin.Replace('\', '\\')
 
+# --- STAGE 1: NON-ADMIN ---
 if ($Stage -eq "User") {
     Write-Host "`n=== Master Bootstrap: User Stage (Non-Admin) ===`n"
 
@@ -62,9 +61,9 @@ if ($Stage -eq "User") {
     Elevate-Script
 }
 
+# --- STAGE 2: ADMIN ---
 elseif ($Stage -eq "Admin") {
     Start-Transcript -Path "$env:USERPROFILE\bootstrap-admin-stage.log" -Append
-
     Write-Host "`n=== Master Bootstrap: Admin Stage (Elevated) ===`n"
 
     if (-Not (Test-Path $bootstrapWin)) {
@@ -73,6 +72,8 @@ elseif ($Stage -eq "Admin") {
         Stop-Transcript
         exit 1
     }
+
+    Write-Host "Creating scheduled task for bootstrap-windows.ps1..."
 
     $result = schtasks /Create `
         /TN "BootstrapWindows" `
@@ -83,7 +84,7 @@ elseif ($Stage -eq "Admin") {
     Write-Host "`nScheduled task result:"
     Write-Host $result
 
-    Write-Host "Task created. Press Enter to reboot or Ctrl+C to cancel..."
+    Write-Host "`nTask created. Press Enter to reboot or Ctrl+C to cancel..."
     Pause
     Stop-Transcript
     Restart-Computer
