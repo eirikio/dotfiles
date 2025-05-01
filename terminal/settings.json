@@ -4,6 +4,7 @@
 
   "profiles": {
     "defaults": {
+      "colorScheme": "Dracula"
       "font": {
         "face": "Delugia Nerd Font",
         "size": 12
@@ -16,14 +17,14 @@
         "source": "Windows.Terminal.Wsl",
         "commandline": "wsl.exe ~",
         "hidden": false,
-        "colorScheme": "Avvente",
+        "colorScheme": "Dracula",
         "startingDirectory": "//wsl$/Ubuntu/home/__USERNAME__"
       },
       {
         "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
         "name": "Windows PowerShell",
         "source": "Windows.Terminal.PowershellCore",
-        "colorScheme": "Avvente",
+        "colorScheme": "Dracula",
         "hidden": false
       },
       {
@@ -32,36 +33,38 @@
         "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
         "startingDirectory": "%USERPROFILE%",
         "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
-        "colorScheme": "Avvente",
+        "colorScheme": "Dracula",
         "hidden": false
       }
     ]
   },
 
-  "schemes": [
+"schemes": [
     {
-      "name": "Avvente",
-      "background": "#1E1E1E",
-      "foreground": "#C8C8C8",
-      "black": "#1E1E1E",
-      "red": "#D16969",
-      "green": "#B5CEA8",
-      "yellow": "#DCDCAA",
-      "blue": "#569CD6",
-      "purple": "#C586C0",
-      "cyan": "#9CDCFE",
-      "white": "#D4D4D4",
-      "brightBlack": "#808080",
-      "brightRed": "#F44747",
-      "brightGreen": "#6A9955",
-      "brightYellow": "#FFFA72",
-      "brightBlue": "#9CDCFE",
-      "brightPurple": "#DDB6F2",
-      "brightCyan": "#4EC9B0",
-      "brightWhite": "#FFFFFF"
+        "name": "Dracula",
+        "cursorColor": "#F8F8F2",
+        "selectionBackground": "#44475A",
+        "background": "#282A36",
+        "foreground": "#F8F8F2",
+        "black": "#21222C",
+        "blue": "#BD93F9",
+        "cyan": "#8BE9FD",
+        "green": "#50FA7B",
+        "purple": "#FF79C6",
+        "red": "#FF5555",
+        "white": "#F8F8F2",
+        "yellow": "#F1FA8C",
+        "brightBlack": "#6272A4",
+        "brightBlue": "#D6ACFF",
+        "brightCyan": "#A4FFFF",
+        "brightGreen": "#69FF94",
+        "brightPurple": "#FF92DF",
+        "brightRed": "#FF6E6E",
+        "brightWhite": "#FFFFFF",
+        "brightYellow": "#FFFFA5"
     }
   ],
-
+  
   "copyOnSelect": false,
   "theme": "dark",
   "useAcrylicInTabRow": true,
