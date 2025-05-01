@@ -2,7 +2,7 @@
 
 2. Open Terminal and paste this to move the master script to C:\Users\<username>\
 ```
-Move-Item "$env:USERNAME\Desktop\master-bootstrap.ps1" "$env:USERNAME\"
+Move-Item "C:\Users\$env:USERNAME\Desktop\master-bootstrap.ps1" "$env:USERNAME\"
 ```
 
 3. Run the script with this
