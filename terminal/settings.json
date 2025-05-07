@@ -6,7 +6,7 @@
     "defaults": {
       "colorScheme": "Dracula"
       "font": {
-        "face": "Delugia Nerd Font",
+        "face": "Inconsolata Nerd Font",
         "size": 12
       }
     },
