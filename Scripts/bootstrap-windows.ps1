@@ -41,7 +41,7 @@ $apps = @(
     "SteelSeries.GG"
     "OBSProject.OBSStudio"
     "Docker.DockerDesktop",
-    "Delugia.Nerd.Font"
+    #"Delugia.Nerd.Font"
 )
 
 foreach ($app in $apps) {
