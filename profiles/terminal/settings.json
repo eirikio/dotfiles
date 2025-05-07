@@ -1,0 +1,71 @@
+{
+  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "defaultProfile": "{b2c8f8d8-bf6a-4e91-822d-9436d83289b2}",
+
+  "profiles": {
+    "defaults": {
+      "colorScheme": "Dracula",
+      "font": {
+        "face": "Inconsolata Nerd Font",
+        "size": 12
+      }
+    },
+    "list": [
+      {
+        "guid": "{b2c8f8d8-bf6a-4e91-822d-9436d83289b2}",
+        "name": "WSL Ubuntu",
+        "source": "Windows.Terminal.Wsl",
+        "hidden": false,
+        "colorScheme": "Dracula",
+        "startingDirectory": "//wsl$/Ubuntu/home/__USERNAME__"
+      },
+      {
+        "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+        "name": "Windows PowerShell",
+        "source": "Windows.Terminal.PowershellCore",
+        "colorScheme": "Dracula",
+        "hidden": false
+      },
+      {
+        "guid": "{00000000-0000-0000-ba54-000000000002}",
+        "name": "Git Bash",
+        "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
+        "startingDirectory": "%USERPROFILE%",
+        "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
+        "colorScheme": "Dracula",
+        "hidden": false
+      }
+    ]
+  },
+
+  "schemes": [
+    {
+      "name": "Dracula",
+      "cursorColor": "#F8F8F2",
+      "selectionBackground": "#290029",
+      "background": "#000000",
+      "foreground": "#F8F8F2",
+      "black": "#21222C",
+      "blue": "#BD93F9",
+      "cyan": "#8BE9FD",
+      "green": "#50FA7B",
+      "purple": "#FF79C6",
+      "red": "#FF5555",
+      "white": "#F8F8F2",
+      "yellow": "#F1FA8C",
+      "brightBlack": "#6272A4",
+      "brightBlue": "#D6ACFF",
+      "brightCyan": "#A4FFFF",
+      "brightGreen": "#69FF94",
+      "brightPurple": "#FF92DF",
+      "brightRed": "#FF6E6E",
+      "brightWhite": "#FFFFFF",
+      "brightYellow": "#FFFFA5"
+    }
+  ],
+
+  "copyOnSelect": false,
+  "theme": "dark",
+  "useAcrylicInTabRow": true,
+  "tabWidthMode": "equal"
+}
