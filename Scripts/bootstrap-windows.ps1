@@ -42,6 +42,7 @@ $apps = @(
     "OBSProject.OBSStudio"
     "Docker.DockerDesktop",
     "Microsoft.PowerShell"
+    "Microsoft.VisualStudioCode"
     #"Delugia.Nerd.Font"
 )
 
