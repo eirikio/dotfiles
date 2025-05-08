@@ -137,7 +137,7 @@ alias zshconfig="nano ~/.zshrc"
 alias zshcode="code ~/.zshrc"
 alias zshsource="source ~/.zshrc"
 alias commands="wslview /mnt/c/Users/$USER/commands/index.html"
-alias publishgit="/mnt/c/Users/eirik/Documents/Scripts/publish.sh"
+alias publish="$USER/scripts/terminal-scripts/publish-to-git-from-cli/publish-to-git-from-cli.sh"
 alias bat="batcat"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
