@@ -69,3 +69,13 @@
   "useAcrylicInTabRow": true,
   "tabWidthMode": "equal"
 }
+//       {
+//        "guid": "{b2c8f8d8-bf6a-4e91-822d-9436d83289b2}",
+//        "name": "WSL Ubuntu",
+//        "source": "Windows.Terminal.Wsl",
+//        "commandline": "wsl.exe ~",
+//        "hidden": false,
+//        "colorScheme": "Dracula",
+//        "startingDirectory": "//wsl$/Ubuntu/home/__USERNAME__"
+//      }, 
+
