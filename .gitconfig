@@ -1,0 +1,13 @@
+[user]
+	name = Eirik
+	email = eirikdjnne@gmail.com
+[alias]
+  ac = !git add -A && git commit -m
+	acp = !git add -A && git commit -m "$1" && git push && :
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+  defaultBranch = main
