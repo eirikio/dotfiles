@@ -4,7 +4,7 @@
   "terminal.integrated.fontFamily": "Inconsolata Nerd Font",
   "terminal.integrated.fontSize": 14,
   "terminal.integrated.shellIntegration.enabled": true,
-  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.defaultProfile.windows": "Windows PowerShell",
   "terminal.integrated.defaultProfile.linux": "WSL Ubuntu",
   "github.copilot.enable": {
     "*": false,
@@ -12,5 +12,6 @@
     "markdown": false,
     "scminput": false,
     "jsonc": false
-  }
+  },
+  "workbench.iconTheme": "material-icon-theme"
 }
