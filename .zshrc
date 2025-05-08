@@ -1,5 +1,8 @@
+# check zsh startup time + zprof at the end
+zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+#export PATH="export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -8,7 +11,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="eastwood"
+ZSH_THEME="af-magic"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,7 +73,37 @@ ZSH_THEME="eastwood"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+
+#zstyle ':omz:plugins:nvm' lazy yes
+zstyle ':omz:plugins:nvm' autoload yes
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
+ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
+
+plugins=(
+    adb
+    command-not-found
+    extract
+    deno
+    docker
+    git
+    github
+    gitignore
+    history-substring-search
+    node
+    npm
+    nvm
+    volta
+    vscode
+    sudo
+    web-search
+    z
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    ohmyzsh-full-autoupdate
+)
+
+
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,16 +136,20 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="nano ~/.zshrc"
 alias zshcode="code ~/.zshrc"
 alias zshsource="source ~/.zshrc"
-alias cheatsheet="wslview /mnt/c/Users/$USER/CheatSheet/index.html"
-alias bq="echo \`"
-alias publish="~/scripts/publish.sh"
+alias commands="wslview /mnt/c/Users/$USER/commands/index.html"
+alias publishgit="/mnt/c/Users/eirik/Documents/Scripts/publish.sh"
 alias bat="batcat"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Custom config
+function exit1() {
+    wt.exe -w 0 nt --profile PowerShell
+    clear
+}
 
-function exit() { 
-    cd /mnt/c/Users/$USER 
+function gowindows() {
+    cd /mnt/c/Users/$USER
+    echo -e "\e[34mNow in Windows home:\e[0m $(pwd)"
 }
 
 function rebuildhistory() {
@@ -121,17 +158,8 @@ function rebuildhistory() {
     fc -R ~/.zsh_history
     echo "History rebuilt successfully!"
 }
-
 function aliases() {
-    keys=(
-	"exit - Switch to Windows Terminal C:\Users\$USER\" 
-	"cheatsheet - Open cheatsheet" 
-	"zshcode - code ~/.zshrc" 
-	"zshconfig - nano ~/.zshrc" 
-	"zshsource - source ~/.zshrc" 
-	"publish - initiate and publish directory to github"
-	"bq - backtick"
-)
+    keys=("gohome - Go to Linux home" "gowindows - Go to Windows home" "commands - Open commands cheatsheet" "zshcode - code ~/.zshrc" "zshconfig - nano ~/.zshrc" "zshsource - source ~/.zshrc")
 
     echo ""
     local i=1
@@ -151,9 +179,8 @@ function typer() {
     done
     printf "\n"
 }
-
 function toiletMsg() {
-    toilet -f slant -F T E R M I N A L
+    toilet -f slant -F gay UwU - WSL
 }
 
 function gm_message() {
@@ -165,12 +192,9 @@ echo -e "\e[37m"
 typer "$(date +"%A, %B %d. %Y")"
 echo ""
 typer "$(echo -e "\e[37m$(date +"[%H:%M]")\e[32m GM, eirik!\e[0m")"
-#typer "$(echo -e "\e[37m$(date +"[%H:%M]")\e[32m $ \e[33mcheatsheet\e[0m - Command line cheatsheet!\e[0m")"
+#typer "$(echo -e "\e[37m$(date +"[%H:%M]")\e[32m $ \e[33mcommands\e[0m - Command line cheatsheet!\e[0m")"
 typer "$(echo -e "\e[37m$(date +"[%H:%M]")\e[32m $ \e[33maliases\e[0m - View aliases!\e[0m")"
 echo ""
 }
 gm_message
-
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+zprof
