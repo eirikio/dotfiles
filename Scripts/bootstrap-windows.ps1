@@ -67,7 +67,7 @@ if (Test-Path $sourceProfile) {
 }
 
 # --- Apply Windows Terminal settings.json ---
-$terminalJsonSource = "$dotfilesPath\terminal\settings.json"
+$terminalJsonSource = "$dotfilesPath\style-setting\terminal\settings.json"
 $terminalJsonDest = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
 if (Test-Path $terminalJsonDest) {
