@@ -17,11 +17,8 @@ sudo apt install -y \
   fzf \
   ripgrep \
   bat \
-  vscode \ -med extensions?
-  #neovim \
+  vscode \
   unzip \
-  #python3 \
-  #python3-pip \
   wslu
 
 # --- Optional: Upgrade installed tools ---
@@ -41,6 +38,9 @@ nvm install --lts
 node -v
 nvm current
 npm -v
+corepack enable pnpm
+yes | pnpm
+pnpm -v
 echo "Installed Node.js via NVM"
 
 # --- Add user to Docker group ---
@@ -60,6 +60,9 @@ fi
 cp "$DOTFILES/.zshrc" ~/.zshrc
 echo "Copied .zshrc to home"
 
+cp "$DOTFILES/.gitconfig" ~/.gitconfig
+echo "Copied .gitconfig to home"
+
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/ohmyzsh-full-autoupdate
@@ -69,6 +72,9 @@ mkdir -p ~/scripts/terminal-scripts/publish-to-git-from-cli/
 cp "$DOTFILES/publish-to-git-from-cli.sh" ~/scripts/terminal-scripts/publish-to-git-from-cli/
 chmod +x ~/scripts/terminal-scripts/publish-to-git-from-cli/publish-to-git-from-cli.sh
 echo "Copied publish-to-git-from-cli.sh to ~/scripts/terminal-scripts/publish-to-git-from-cli/"
+
+mkdir ~/code/
+mkdir ~/random/
 
 sudo mv $DOTFILES/nerdfonts/inconsolata /usr/share/fonts/
 
@@ -86,6 +92,33 @@ echo "System packages updated"
 #  nvm install --lts --reinstall-packages-from=current
 #  echo "Node.js LTS version updated via NVM"
 #fi
+
+# --- Install VS Code extensions ---
+echo "Installing VS Code extensions..."
+extensions=(
+  "esbenp.prettier-vscode"
+  "dbaeumer.vscode-eslint"
+  "bradlc.vscode-tailwindcss"
+  "donjayamanne.githistory"
+  "github.copilot"
+  "github.copilot-chat"
+  "mhutchie.git-graph"
+  "mikestead.dotenv"
+  "ms-vscode.live-server"
+  "ms-vscode.powershell"
+  "mtxr.sqltools"
+  "pkief.material-icon-theme"
+  "prisma.prisma"
+  "ritwickdey.liveserver"
+  "sleistner.vscode-fileutils"
+  "vira.vsc-vira-theme"
+  # Add more if needed
+)
+
+for ext in "${extensions[@]}"; do
+  code --install-extension $ext || echo "Failed to install $ext"
+done
+echo "VS Code extensions installed."
 
 # --- Optional: remove the repo ---
 rm -rf "$DOTFILES"
