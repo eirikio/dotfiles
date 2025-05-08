@@ -141,7 +141,7 @@ alias bat="batcat"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Custom config
-function exit() {
+function pwsh() {
     cd "/mnt/c/Users/$USER"
     pwsh.exe
 }
