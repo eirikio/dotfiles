@@ -17,19 +17,28 @@ sudo apt install -y \
   fzf \
   ripgrep \
   bat \
+  vscode \ -med extensions?
   #neovim \
   unzip \
   #python3 \
   #python3-pip \
   wslu
 
+# --- Optional: Upgrade installed tools ---
+echo ""
+echo "Checking for WSL package updates..."
+sudo apt update && sudo apt upgrade -y
+echo "System packages updated"
+
+yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 # --- Install Node.js via NVM ---
-export NVM_VERSION="v0.40.0"
+export NVM_VERSION="v0.40.3"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 \. "$HOME/.nvm/nvm.sh"
 nvm install --lts
-nove -v
+node -v
 nvm current
 npm -v
 echo "Installed Node.js via NVM"
@@ -38,7 +47,7 @@ echo "Installed Node.js via NVM"
 #sudo usermod -aG docker $USER
 
 # --- Set up Starship prompt ---
-curl -sS https://starship.rs/install.sh | sh -s -- -y
+# curl -sS https://starship.rs/install.sh | sh -s -- -y
 
 # --- Clone dotfiles if not already present ---
 DOTFILES=~/dotfiles
@@ -51,23 +60,20 @@ fi
 cp "$DOTFILES/.zshrc" ~/.zshrc
 echo "Copied .zshrc to home"
 
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/ohmyzsh-full-autoupdate
+
 # --- Create scripts folder and copy publish.sh ---
 mkdir -p ~/scripts
-cp "$DOTFILES/publish.sh" ~/scripts/
-chmod +x ~/scripts/publish.sh
-echo "Copied publish.sh to ~/scripts"
+cp "$DOTFILES/publish-to-git-from-cli.sh" ~/scripts/terminal-scripts/publish-to-git-from-cli/
+chmod +x ~/scripts/terminal-scripts/publish-to-git-from-cli/publish-to-git-from-cli.sh
+echo "Copied publish-to-git-from-cli.sh to ~/scripts/terminal-scripts/publish-to-git-from-cli/"
 
-# --- Add alias to .zshrc if not already present ---
-if ! grep -q 'alias publish=' ~/.zshrc; then
-  echo 'alias publish="$HOME/scripts/publish.sh"' >> ~/.zshrc
-  echo "Alias added to .zshrc"
-fi
+sudo mv $DOTFILES/nerdfonts/inconsolata /usr/share/fonts/
 
-# --- Add WSL cheatsheet alias ---
-if ! grep -q 'alias cheatsheet=' ~/.zshrc; then
-  echo 'alias cheatsheet="wslview /mnt/c/Users/$USER/CheatSheet/index.html"' >> ~/.zshrc
-  echo "Alias added to .zshrc"
-fi
+sudo apt install fontconfig
+fc-cache -fv
 
 # --- Optional: Upgrade installed tools ---
 echo ""
@@ -76,10 +82,10 @@ sudo apt update && sudo apt upgrade -y
 echo "System packages updated"
 
 # --- Optional: Upgrade NVM-managed Node (if needed) ---
-if command -v nvm &>/dev/null; then
-  nvm install --lts --reinstall-packages-from=current
-  echo "Node.js LTS version updated via NVM"
-fi
+#if command -v nvm &>/dev/null; then
+#  nvm install --lts --reinstall-packages-from=current
+#  echo "Node.js LTS version updated via NVM"
+#fi
 
 # --- Optional: remove the repo ---
 rm -rf "$DOTFILES"
@@ -90,6 +96,6 @@ echo "Removed dotfiles repo after setup"
 chsh -s $(which zsh)
 
 # Cleanup scheduled task
-powershell.exe schtasks /Delete /TN "BootstrapWSL" /F
+pwsh.exe schtasks /Delete /TN "BootstrapWSL" /F
 
 echo "WSL Bootstrap Completed. Run: exec zsh or restart shell"
