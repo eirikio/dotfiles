@@ -61,6 +61,13 @@ extensions=(
   "prisma.prisma"
   "ritwickdey.liveserver"
   "sleistner.vscode-fileutils"
+  "aaron-bond.better-comments"
+  "dsznajder.es7-react-js-snippets"
+  "ms-vscode-remote.remote-wsl"
+  "pulkitgangwar.nextjs-snippets"
+  "rvest.vs-code-prettier-eslint"
+  "tonybaloney.vscode-pets"
+  "aic.docify"
   # Add more if needed
 )
 
