@@ -43,6 +43,32 @@ yes | pnpm
 pnpm -v
 echo "Installed Node.js via NVM"
 
+# --- Install VS Code extensions ---
+echo "Installing VS Code extensions..."
+extensions=(
+  "esbenp.prettier-vscode"
+  "dbaeumer.vscode-eslint"
+  "bradlc.vscode-tailwindcss"
+  "donjayamanne.githistory"
+  "github.copilot"
+  "github.copilot-chat"
+  "mhutchie.git-graph"
+  "mikestead.dotenv"
+  "ms-vscode.live-server"
+  "ms-vscode.powershell"
+  "mtxr.sqltools"
+  "pkief.material-icon-theme"
+  "prisma.prisma"
+  "ritwickdey.liveserver"
+  "sleistner.vscode-fileutils"
+  # Add more if needed
+)
+
+for ext in "${extensions[@]}"; do
+  code --install-extension $ext || echo "Failed to install $ext"
+done
+echo "VS Code extensions installed."
+
 # --- Add user to Docker group ---
 #sudo usermod -aG docker $USER
 
@@ -66,6 +92,8 @@ echo "Copied .gitconfig to home"
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/ohmyzsh-full-autoupdate
+
+
 
 # --- Create scripts folder and copy publish.sh ---
 mkdir -p ~/scripts/terminal-scripts/publish-to-git-from-cli/
@@ -93,31 +121,7 @@ echo "System packages updated"
 #  echo "Node.js LTS version updated via NVM"
 #fi
 
-# --- Install VS Code extensions ---
-echo "Installing VS Code extensions..."
-extensions=(
-  "esbenp.prettier-vscode"
-  "dbaeumer.vscode-eslint"
-  "bradlc.vscode-tailwindcss"
-  "donjayamanne.githistory"
-  "github.copilot"
-  "github.copilot-chat"
-  "mhutchie.git-graph"
-  "mikestead.dotenv"
-  "ms-vscode.live-server"
-  "ms-vscode.powershell"
-  "mtxr.sqltools"
-  "pkief.material-icon-theme"
-  "prisma.prisma"
-  "ritwickdey.liveserver"
-  "sleistner.vscode-fileutils"
-  # Add more if needed
-)
 
-for ext in "${extensions[@]}"; do
-  code --install-extension $ext || echo "Failed to install $ext"
-done
-echo "VS Code extensions installed."
 
 # --- Optional: remove the repo ---
 rm -rf "$DOTFILES"
