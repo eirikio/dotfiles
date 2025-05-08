@@ -1,1 +1,9 @@
-
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "terminal.integrated.fontFamily": "Inconsolata Nerd Font",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.shellIntegration.enabled": true,
+  "terminal.integrated.defaultProfile.windows": "Windows PowerShell",
+  "terminal.integrated.defaultProfile.linux": "WSL Ubuntu"
+}
