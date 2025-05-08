@@ -24,9 +24,9 @@
         "commandline": "C:\\WINDOWS\\system32\\wsl.exe --distribution-id {5c9244a1-12d5-455d-8303-8ac2032fd847} --cd ~",
         "guid": "{b2c8f8d8-bf6a-4e91-822d-9436d83289b2}",
         "hidden": false,
-        "icon": "C:\\Users\\eirik\\AppData\\Local\\wsl\\{5c9244a1-12d5-455d-8303-8ac2032fd847}\\shortcut.ico",
+        "icon": "C:\\Users\\__USERNAME__\\AppData\\Local\\wsl\\{5c9244a1-12d5-455d-8303-8ac2032fd847}\\shortcut.ico",
         "name": "WSL Ubuntuu",
-        "startingDirectory": "//wsl$/Ubuntu/home/%USERNAME%"
+        "startingDirectory": "//wsl$/Ubuntu/home/__USERNAME__"
       },
       {
         "colorScheme": "Dracula",
@@ -36,7 +36,7 @@
         "icon": "ms-appx:///ProfileIcons/pwsh.png",
         "name": "PowerShell",
         "source": "Windows.Terminal.PowershellCore",
-        "startingDirectory": "%USERPROFILE%"
+        "startingDirectory": "$USERPROFILE$"
       },
       {
         "colorScheme": "Dracula",
