@@ -34,6 +34,3 @@ Write-Host ""
 #}
 
 function wsl { wsl.exe ~ }
-function home { cd $env:USERPROFILE }
-function pedit { notepad $profile }
-function psave { . $profile Write-Host "Profile changes saved" -ForegroundColor Green }
