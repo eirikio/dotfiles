@@ -111,7 +111,6 @@ extensions=(
   "prisma.prisma"
   "ritwickdey.liveserver"
   "sleistner.vscode-fileutils"
-  "vira.vsc-vira-theme"
   # Add more if needed
 )
 
