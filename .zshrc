@@ -142,7 +142,7 @@ alias bat="batcat"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Custom config
-function exit1() {
+function exit() {
     wt.exe -w 0 nt --profile PowerShell
     clear
 }
