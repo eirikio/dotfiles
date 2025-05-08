@@ -58,7 +58,7 @@ powercfg /hibernate off
 
 # --- Set PowerShell Profile from Dotfiles ---
 $sourceProfile = "$dotfilesPath\powershell\Microsoft.PowerShell_profile.ps1"
-$targetProfile = $PROFILE
+$targetProfile = "C:\Users\$env:USERNAME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 
 if (Test-Path $sourceProfile) {
     Copy-Item $sourceProfile $targetProfile -Force
