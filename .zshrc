@@ -93,7 +93,6 @@ plugins=(
     node
     npm
     nvm
-    volta
     vscode
     sudo
     web-search
@@ -101,16 +100,6 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     ohmyzsh-full-autoupdate
-    // ????????
-    figlet
-    toilet
-    jp2a
-    fzf
-    ripgrep
-    bat
-    unzip
-    wslu
-    //
 )
 
 
