@@ -65,7 +65,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/ohmyzsh-full-autoupdate
 
 # --- Create scripts folder and copy publish.sh ---
-mkdir -p ~/scripts
+mkdir -p ~/scripts/terminal-scripts/publish-to-git-from-cli/
 cp "$DOTFILES/publish-to-git-from-cli.sh" ~/scripts/terminal-scripts/publish-to-git-from-cli/
 chmod +x ~/scripts/terminal-scripts/publish-to-git-from-cli/publish-to-git-from-cli.sh
 echo "Copied publish-to-git-from-cli.sh to ~/scripts/terminal-scripts/publish-to-git-from-cli/"
