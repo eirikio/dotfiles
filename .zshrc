@@ -101,6 +101,16 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     ohmyzsh-full-autoupdate
+    // ????????
+    figlet
+    toilet
+    jp2a
+    fzf
+    ripgrep
+    bat
+    unzip
+    wslu
+    //
 )
 
 
