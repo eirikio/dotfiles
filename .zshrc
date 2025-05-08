@@ -142,8 +142,8 @@ alias bat="batcat"
 
 # Custom config
 function exit() {
-    wt.exe -w 0 nt --profile PowerShell
-    clear
+    cd "/mnt/c/Users/$USER"
+    pwsh.exe
 }
 
 function gowindows() {
