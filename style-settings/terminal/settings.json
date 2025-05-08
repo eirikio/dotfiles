@@ -1,0 +1,98 @@
+{
+  "$help": "https://aka.ms/terminal-documentation",
+  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "actions": [],
+  "copyOnSelect": false,
+  "defaultProfile": "{b2c8f8d8-bf6a-4e91-822d-9436d83289b2}",
+  "keybindings": [],
+  "newTabMenu": [
+    {
+      "type": "remainingProfiles"
+    }
+  ],
+  "profiles": {
+    "defaults": {
+      "colorScheme": "Dracula",
+      "font": {
+        "face": "Inconsolata Nerd Font",
+        "size": 12
+      }
+    },
+    "list": [
+      {
+        "colorScheme": "Dracula",
+        "commandline": "C:\\WINDOWS\\system32\\wsl.exe --distribution-id {5c9244a1-12d5-455d-8303-8ac2032fd847} --cd ~",
+        "guid": "{b2c8f8d8-bf6a-4e91-822d-9436d83289b2}",
+        "hidden": false,
+        "icon": "C:\\Users\\eirik\\AppData\\Local\\wsl\\{5c9244a1-12d5-455d-8303-8ac2032fd847}\\shortcut.ico",
+        "name": "WSL Ubuntuu",
+        "startingDirectory": "//wsl$/Ubuntu/home/%USERNAME%"
+      },
+      {
+        "colorScheme": "Dracula",
+        "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+        "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+        "hidden": false,
+        "icon": "ms-appx:///ProfileIcons/pwsh.png",
+        "name": "PowerShell",
+        "source": "Windows.Terminal.PowershellCore",
+        "startingDirectory": "%USERPROFILE%"
+      },
+      {
+        "colorScheme": "Dracula",
+        "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
+        "guid": "{00000000-0000-0000-ba54-000000000002}",
+        "hidden": false,
+        "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
+        "name": "Git Bash",
+        "startingDirectory": "%USERPROFILE%"
+      }
+      // {
+      //   "altGrAliasing": true,
+      //   "antialiasingMode": "grayscale",
+      //   "closeOnExit": "automatic",
+      //   "colorScheme": "Dracula",
+      //   "commandline": "powershell.exe",
+      //   "cursorShape": "bar",
+      //   "guid": "{3e603c80-4e6d-46db-ae6d-82c97fb3afa9}",
+      //   "hidden": false,
+      //   "historySize": 9001,
+      //   "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
+      //   "name": "Windows PowerShell",
+      //   "padding": "8, 8, 8, 8",
+      //   "snapOnInput": true,
+      //   "startingDirectory": "%USERPROFILE%\\",
+      //   "useAcrylic": false
+      // }
+    ]
+  },
+  "schemes": [
+    {
+      "background": "#000000",
+      "black": "#21222C",
+      "blue": "#BD93F9",
+      "brightBlack": "#6272A4",
+      "brightBlue": "#D6ACFF",
+      "brightCyan": "#A4FFFF",
+      "brightGreen": "#69FF94",
+      "brightPurple": "#FF92DF",
+      "brightRed": "#FF6E6E",
+      "brightWhite": "#FFFFFF",
+      "brightYellow": "#FFFFA5",
+      "cursorColor": "#F8F8F2",
+      "cyan": "#8BE9FD",
+      "foreground": "#F8F8F2",
+      "green": "#50FA7B",
+      "name": "Dracula",
+      "purple": "#FF79C6",
+      "red": "#FF5555",
+      "selectionBackground": "#290029",
+      "white": "#F8F8F2",
+      "yellow": "#F1FA8C"
+    }
+  ],
+  "tabWidthMode": "equal",
+  "theme": "dark",
+  "themes": [],
+  "useAcrylicInTabRow": true
+}
