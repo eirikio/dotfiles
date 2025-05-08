@@ -1,5 +1,5 @@
 # check zsh startup time + zprof at the end
-zmodload zsh/zprof
+#zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 #export PATH="export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
@@ -197,4 +197,5 @@ typer "$(echo -e "\e[37m$(date +"[%H:%M]")\e[32m $ \e[33maliases\e[0m - View ali
 echo ""
 }
 gm_message
-zprof
+
+#zprof
