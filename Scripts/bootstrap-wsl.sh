@@ -36,7 +36,7 @@ corepack enable pnpm
 yes | pnpm
 pnpm -v
 echo "Installed Node.js via NVM"
-
+pnpm add -g typescript
 
 
 # --- Add user to Docker group ---
