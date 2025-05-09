@@ -49,3 +49,4 @@ Write-Host ""
 #}
 
 function wslhome { wsl.exe ~ }
+function workspace { C:\Workspaces }
