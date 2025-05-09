@@ -1,3 +1,18 @@
+Import-Module "oh-my-posh"
+Import-Module "posh-git"
+Import-Module "Terminal-Icons"
+Import-Module "PSReadLine"
+
+Set-PoshPrompt -Theme "$env:USERPROFILE\.oh-my-posh-custom-theme.omp.json"
+
+Set-PSReadlineOption -BellStyle "None"
+Set-PSReadLineOption -PredictionSource "History"
+Set-PSReadLineKeyHandler -Chord "Tab" -Function "MenuComplete"
+
+Set-PSReadLineOption -Colors @{
+    "InlinePrediction" = [ConsoleColor]::DarkGray
+}
+
 Write-Host ""
 $timenow = get-date
 $timecomparisonMorning = Get-Date -Hour 12 -Minute 0
