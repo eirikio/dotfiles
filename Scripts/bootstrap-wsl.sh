@@ -17,7 +17,6 @@ sudo apt install -y \
   fzf \
   ripgrep \
   bat \
-  vscode \
   unzip \
   wslu
 
