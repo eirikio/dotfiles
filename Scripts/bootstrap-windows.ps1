@@ -1,35 +1,7 @@
 Write-Host "`n=== Running Windows Bootstrap Script ===`n"
 
-# --- Ensure Git is installed before anything else ---
-#if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-#    Write-Host "Git not found. Installing Git for Windows..."
-#    winget install Git.Git -e
-#    Write-Host "Git installed."
-
-    # Refresh PATH so Git is immediately available
-#    $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" +
-#                [System.Environment]::GetEnvironmentVariable("PATH", "User")
-
-#    if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-#        Write-Host "Git is still not available. Please restart PowerShell and rerun this script."
-#        exit 1
-#    }
-#}
-
 # --- Define dotfiles path ---
 $dotfilesPath = "$env:USERPROFILE\dotfiles"
-
-# --- Clone dotfiles repo if not already present ---
-#if (-not (Test-Path $dotfilesPath)) {
-#    Write-Host "Cloning dotfiles repo..."
-#    git clone https://github.com/eirikio/dotfiles.git $dotfilesPath
-
-#    if (-not (Test-Path $dotfilesPath)) {
-#        Write-Host "Failed to clone dotfiles repo. Check your internet connection or the repo URL."
-#        exit 1
-#    }
-#    Write-Host "dotfiles cloned to $dotfilesPath"
-#}
 
 # --- Install Applications via Winget ---
 $apps = @(
@@ -43,7 +15,6 @@ $apps = @(
     "Docker.DockerDesktop",
     "Microsoft.PowerShell",
     "Microsoft.VisualStudioCode"
-    #"Delugia.Nerd.Font"
 )
 
 foreach ($app in $apps) {
@@ -51,10 +22,24 @@ foreach ($app in $apps) {
     winget install --id=$app -e
 }
 
+Install-Module -Name "oh-my-posh" -Force -AllowClobber
+Install-Module -Name "posh-git" -Force -AllowClobber
+Install-Module -Name "Terminal-Icons" -Force -AllowClobber
+Install-Module -Name "PSWebSearch" -Force -AllowClobber
+Install-Module -Name "PSReadLine" -Force -AllowClobber
+
 # --- Tweak Windows Settings ---
 Write-Host "Tuning Windows settings..."
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWord -Force
 powercfg /hibernate off
+
+$ohMyPoshThemeSource = "$dotfilesPath\style-settings\terminal\.oh-my-posh-custom-theme.omp.json"
+$ohMyPoshThemeDest = "$env:USERPROFILE\.oh-my-posh-custom-theme.omp.json"
+
+if (Test-Path $ohMyPoshThemeSource) {
+    Copy-Item $ohMyPoshThemeSource $ohMyPoshThemeDest -Force
+    Write-Host "Oh My Posh theme copied to $ohMyPoshThemeDest"
+}
 
 # --- Set PowerShell Profile from Dotfiles ---
 $sourceProfile = "$dotfilesPath\powershell\Microsoft.PowerShell_profile.ps1"
