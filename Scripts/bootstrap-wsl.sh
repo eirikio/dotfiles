@@ -111,6 +111,7 @@ if [ -f "$MY_SETTINGS" ]; then
         jq -s '.[0] * .[1]' "$MY_SETTINGS" "$VSCODE_SETTINGS" > /tmp/merged_settings.json \
             && mv /tmp/merged_settings.json "$VSCODE_SETTINGS"
     else
+        mkdir -p "$(dirname $VSCODE_SETTINGS)"
         cp "$MY_SETTINGS" "$VSCODE_SETTINGS"
     fi
 
