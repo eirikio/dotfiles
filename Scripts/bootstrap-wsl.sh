@@ -139,4 +139,9 @@ chsh -s $(which zsh)
 # Cleanup scheduled task
 pwsh.exe schtasks /Delete /TN "BootstrapWSL" /F
 
-echo "WSL Bootstrap Completed. Run: exec zsh or restart shell"
+echo ""
+echo "WSL Bootstrap Completed!"
+echo "Press Enter to start zsh now."
+read
+echo "Starting zsh..."
+exec zsh
