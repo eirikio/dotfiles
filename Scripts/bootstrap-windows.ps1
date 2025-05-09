@@ -3,6 +3,8 @@ Write-Host "`n=== Running Windows Bootstrap Script ===`n"
 # --- Define dotfiles path ---
 $dotfilesPath = "$env:USERPROFILE\dotfiles"
 
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+
 # --- Install Applications via Winget ---
 $apps = @(
     "Microsoft.PowerToys",
@@ -12,7 +14,7 @@ $apps = @(
     "RARLab.WinRAR",
     "SteelSeries.GG",
     "OBSProject.OBSStudio",
-    "Docker.DockerDesktop",
+    #"Docker.DockerDesktop",
     "Microsoft.PowerShell",
     "Microsoft.VisualStudioCode"
 )
