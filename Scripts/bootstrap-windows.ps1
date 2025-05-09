@@ -41,7 +41,7 @@ $apps = @(
     "SteelSeries.GG"
     "OBSProject.OBSStudio"
     "Docker.DockerDesktop",
-    "Microsoft.PowerShell"
+    "Microsoft.PowerShell",
     "Microsoft.VisualStudioCode"
     #"Delugia.Nerd.Font"
 )
