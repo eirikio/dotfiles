@@ -38,8 +38,8 @@ $apps = @(
     "Microsoft.WindowsTerminal",
     "Discord.Discord",
     "RARLab.WinRAR",
-    "SteelSeries.GG"
-    "OBSProject.OBSStudio"
+    "SteelSeries.GG",
+    "OBSProject.OBSStudio",
     "Docker.DockerDesktop",
     "Microsoft.PowerShell",
     "Microsoft.VisualStudioCode"
@@ -130,6 +130,10 @@ Write-Host "`n=== Windows Bootstrap Completed ===`n"
 $wslBootstrap = "wsl.exe bash -c '~/dotfiles/Scripts/bootstrap-wsl.sh'"
 schtasks /Create /TN "BootstrapWSL" /TR $wslBootstrap /SC ONLOGON /RL LIMITED /DELAY 0000:30 /F
 
-schtasks /Delete /TN "BootstrapWindows" /F
-Write-Host "Scheduled WSL bootstrap. Rebooting..."
+if (Get-ScheduledTask -TaskName "BootstrapWindows" -ErrorAction SilentlyContinue) {
+    schtasks /Delete /TN "BootstrapWindows" /F
+    Write-Host "BootstrapWindows task deleted."
+} else {
+    Write-Host "BootstrapWindows task was not found; skipping delete."
+}
 Restart-Computer
