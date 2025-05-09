@@ -20,12 +20,6 @@ sudo apt install -y \
   unzip \
   wslu
 
-# --- Optional: Upgrade installed tools ---
-echo ""
-echo "Checking for WSL package updates..."
-sudo apt update && sudo apt upgrade -y
-echo "System packages updated"
-
 yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # --- Install Node.js via NVM ---
@@ -41,6 +35,34 @@ corepack enable pnpm
 yes | pnpm
 pnpm -v
 echo "Installed Node.js via NVM"
+
+
+
+# --- Add user to Docker group ---
+#sudo usermod -aG docker $USER
+
+# --- Set up Starship prompt ---
+# curl -sS https://starship.rs/install.sh | sh -s -- -y
+
+# --- Clone dotfiles if not already present ---
+DOTFILES=~/dotfiles
+if [ ! -d "$DOTFILES" ]; then
+  git clone https://github.com/eirikio/dotfiles.git "$DOTFILES"
+  echo "Cloned dotfiles repo"
+fi
+
+# --- Copy .zshrc to home ---
+cp "$DOTFILES/.zshrc" ~/.zshrc
+source ~/-zshrc
+echo "Copied .zshrc to home"
+
+cp "$DOTFILES/.gitconfig" ~/.gitconfig
+echo "Copied .gitconfig to home"
+
+
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/ohmyzsh-full-autoupdate
 
 # --- Install VS Code extensions ---
 echo "Installing VS Code extensions..."
@@ -70,36 +92,13 @@ extensions=(
   # Add more if needed
 )
 
-for ext in "${extensions[@]}"; do
-  code --install-extension $ext || echo "Failed to install $ext"
-done
-echo "VS Code extensions installed."
-
-# --- Add user to Docker group ---
-#sudo usermod -aG docker $USER
-
-# --- Set up Starship prompt ---
-# curl -sS https://starship.rs/install.sh | sh -s -- -y
-
-# --- Clone dotfiles if not already present ---
-DOTFILES=~/dotfiles
-if [ ! -d "$DOTFILES" ]; then
-  git clone https://github.com/eirikio/dotfiles.git "$DOTFILES"
-  echo "Cloned dotfiles repo"
+if command -v code &> /dev/null; then
+    for ext in "${extensions[@]}"; do
+      code --install-extension $ext || echo "Failed to install $ext"
+    done
+else
+    echo "VS Code not found; skipping extension installation."
 fi
-
-# --- Copy .zshrc to home ---
-cp "$DOTFILES/.zshrc" ~/.zshrc
-echo "Copied .zshrc to home"
-
-cp "$DOTFILES/.gitconfig" ~/.gitconfig
-echo "Copied .gitconfig to home"
-
-git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/ohmyzsh-full-autoupdate
-
-
 
 # --- Create scripts folder and copy publish.sh ---
 mkdir -p ~/scripts/terminal-scripts/publish-to-git-from-cli/
