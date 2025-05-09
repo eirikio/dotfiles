@@ -33,6 +33,51 @@ Write-Host "Tuning Windows settings..."
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWord -Force
 powercfg /hibernate off
 
+# Enable showing file extensions
+Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0
+
+# Set Explorer to open 'This PC' by default
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Value 1
+
+# Classic context menu (right click)
+$classicContextKey = "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}"
+if (-not (Test-Path $classicContextKey)) {
+    New-Item -Path $classicContextKey | Out-Null
+}
+New-Item -Path "$classicContextKey\InprocServer32" -Force | Out-Null
+
+# Remove recently opened items from JumpList
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackDocs" -Value 0
+
+# Power plan tweaks
+powercfg -change "disk-timeout-ac" 0
+powercfg -change "disk-timeout-dc" 0
+powercfg -change "hibernate-timeout-ac" 0
+powercfg -change "hibernate-timeout-dc" 0
+powercfg -change "standby-timeout-ac" 0
+powercfg -change "standby-timeout-dc" 0
+powercfg -change "monitor-timeout-ac" 10
+powercfg -change "monitor-timeout-dc" 10
+powercfg /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 30
+powercfg /SETDCVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 30
+powercfg /SETACTIVE SCHEME_CURRENT
+
+# Regional format tweaks
+Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "iFirstDayOfWeek" -Value "0"
+Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sShortDate" -Value "yyyy-MM-dd"
+Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sLongDate" -Value "dddd, d MMMM, yyyy"
+Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sShortTime" -Value "HH:mm"
+Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sTimeFormat" -Value "HH:mm:ss"
+
+# Disable unused Windows Features
+Disable-WindowsOptionalFeature -FeatureName "WindowsMediaPlayer" -Online -NoRestart -ErrorAction SilentlyContinue
+Disable-WindowsOptionalFeature -FeatureName "Internet-Explorer-Optional-amd64" -Online -NoRestart -ErrorAction SilentlyContinue
+Disable-WindowsOptionalFeature -FeatureName "Printing-XPSServices-Features" -Online -NoRestart -ErrorAction SilentlyContinue
+Disable-WindowsOptionalFeature -FeatureName "WorkFolders-Client" -Online -NoRestart -ErrorAction SilentlyContinue
+
+# Enable Windows Sandbox
+Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online -NoRestart -ErrorAction SilentlyContinue
+
 $ohMyPoshThemeSource = "$dotfilesPath\style-settings\terminal\.oh-my-posh-custom-theme.omp.json"
 $ohMyPoshThemeDest = "$env:USERPROFILE\.oh-my-posh-custom-theme.omp.json"
 
@@ -87,29 +132,15 @@ New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 Stop-Process -Name explorer -Force
 Start-Process explorer
 
-# --- Install WSL + Ubuntu (non-admin only) ---
-#if (-not $isAdmin) {
-#    Write-Host "Checking for WSL..."
-#    if (-not (Get-Command wsl -ErrorAction SilentlyContinue)) {
-#        Write-Host "WSL command not found. Your system might not support it."
-#        exit 1
-#    }
-
-#    $wslList = wsl --list --quiet 2>$null
-#    if ($wslList -notmatch "Ubuntu") {
-#        Write-Host "Installing WSL + Ubuntu..."
-#        wsl --install -d Ubuntu
-#        Write-Host "Ubuntu installation started. Reboot when prompted."
-#        Pause
-#        exit 0
-#    } else {
-#        Write-Host "Ubuntu already installed in WSL"
-#    }
-#} else {
-#    Write-Host "Skipping WSL installation (requires non-admin context)."
-#}
-
 Write-Host "`n=== Windows Bootstrap Completed ===`n"
+
+$newPCName = Read-Host "Enter PC name"
+
+if ($env:COMPUTERNAME -ne $newPCName) {
+    Write-Host "Renaming PC to $newPCName..."
+    Rename-Computer -NewName $newPCName -Force
+    Write-Host "PC renamed. A reboot is required to apply changes."
+}
 
 # --- Schedule bootstrap-wsl.sh to run from WSL after reboot ---
 $wslBootstrap = "wsl.exe bash -c '~/dotfiles/Scripts/bootstrap-wsl.sh'"
