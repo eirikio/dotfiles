@@ -52,7 +52,7 @@ if ($Stage -eq "User") {
         Write-Host "dotfiles cloned to $dotfilesPath`n"
     }
 
-    $wslList = wsl --list --quiet 2>$null
+    $wslList = wsl --list 2>$null
     if ($wslList -notmatch "Ubuntu") {
         Write-Host "Installing WSL + Ubuntu..."
         wsl --install -d Ubuntu
