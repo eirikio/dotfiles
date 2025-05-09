@@ -121,13 +121,12 @@ else
 fi
 
 # --- Create scripts folder and copy publish.sh ---
-mkdir -p ~/scripts/terminal-scripts/publish-to-git-from-cli/
-cp "$DOTFILES/publish-to-git-from-cli.sh" ~/scripts/terminal-scripts/publish-to-git-from-cli/
-chmod +x ~/scripts/terminal-scripts/publish-to-git-from-cli/publish-to-git-from-cli.sh
-echo "Copied publish-to-git-from-cli.sh to ~/scripts/terminal-scripts/publish-to-git-from-cli/"
+mkdir -p ~/Workspace/Scripts/terminal-scripts/publish-to-git-from-cli/
+cp "$DOTFILES/publish-to-git-from-cli.sh" ~/Workspace/Scripts/terminal-scripts/publish-to-git-from-cli/
+chmod +x ~/Workspace/Scripts/terminal-scripts/publish-to-git-from-cli/publish-to-git-from-cli.sh
+echo "Copied publish-to-git-from-cli.sh to ~/Workspace/scripts/terminal-scripts/publish-to-git-from-cli/"
 
-mkdir ~/code/
-mkdir ~/random/
+mkdir -p ~/Workspace
 
 sudo mv $DOTFILES/nerdfonts/inconsolata /usr/share/fonts/
 
