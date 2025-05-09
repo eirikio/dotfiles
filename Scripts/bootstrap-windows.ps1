@@ -144,7 +144,7 @@ Start-Process explorer
 
 Write-Host "`n=== Windows Bootstrap Completed ===`n"
 
-$newPCName = Read-Host "Enter PC name"
+$newPCName = Read-Host -Prompt "Enter new PC name"
 
 if ($newPCName -and ($env:COMPUTERNAME -ne $newPCName)) {
     Write-Host "Renaming PC to $newPCName..."
