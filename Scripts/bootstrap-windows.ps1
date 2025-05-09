@@ -88,8 +88,8 @@ Disable-WindowsOptionalFeature -FeatureName "WorkFolders-Client" -Online -NoRest
 # Enable Windows Sandbox
 Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online -NoRestart -ErrorAction SilentlyContinue
 
-$ohMyPoshThemeSource = "$dotfilesPath\oh-my-posh\themes\.space.omp.json"
-$ohMyPoshThemeDest = "$env:USERPROFILE"
+$ohMyPoshThemeSource = "$dotfilesPath\style-settings\oh-my-posh\.space.omp.json"
+$ohMyPoshThemeDest = "$env:USERPROFILE\.space.omp.json"
 
 if (Test-Path $ohMyPoshThemeSource) {
     Copy-Item $ohMyPoshThemeSource $ohMyPoshThemeDest -Force
