@@ -48,4 +48,4 @@ Write-Host ""
 #    code $env:USERPROFILE\CheatSheet\index.html
 #}
 
-function wsl { wsl.exe ~ }
+function wslhome { wsl.exe ~ }
