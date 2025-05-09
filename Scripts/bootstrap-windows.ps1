@@ -136,10 +136,12 @@ Write-Host "`n=== Windows Bootstrap Completed ===`n"
 
 $newPCName = Read-Host "Enter PC name"
 
-if ($env:COMPUTERNAME -ne $newPCName) {
+if ($newPCName -and ($env:COMPUTERNAME -ne $newPCName)) {
     Write-Host "Renaming PC to $newPCName..."
     Rename-Computer -NewName $newPCName -Force
     Write-Host "PC renamed. A reboot is required to apply changes."
+} elseif (-not $newPCName) {
+    Write-Host "No PC name entered; skipping rename."
 }
 
 # --- Schedule bootstrap-wsl.sh to run from WSL after reboot ---
