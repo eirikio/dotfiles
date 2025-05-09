@@ -32,7 +32,7 @@ if ($Stage -eq "User") {
     Write-Host "`n=== Master Bootstrap: User Stage (Non-Admin) ===`n"
 
     Write-Host "Installing Spotify..."
-    winget install Spotify.Spotify -e
+    winget install --id=Spotify.Spotify --exact --accept-source-agreements
     Write-Host "Spotify installed`n"
 
     if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
