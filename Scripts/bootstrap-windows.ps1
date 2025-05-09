@@ -28,6 +28,16 @@ Install-Module -Name "Terminal-Icons" -Force -AllowClobber
 Install-Module -Name "PSWebSearch" -Force -AllowClobber
 Install-Module -Name "PSReadLine" -Force -AllowClobber
 
+$modules = @("oh-my-posh", "posh-git", "Terminal-Icons", "PSWebSearch", "PSReadLine")
+
+foreach ($mod in $modules) {
+    if (Get-Module -ListAvailable -Name $mod) {
+        Write-Host "$mod installed successfully."
+    } else {
+        Write-Host "Warning: $mod did not install correctly!" -ForegroundColor Red
+    }
+}
+
 # --- Tweak Windows Settings ---
 Write-Host "Tuning Windows settings..."
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWord -Force
