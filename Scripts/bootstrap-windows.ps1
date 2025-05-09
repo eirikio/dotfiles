@@ -83,12 +83,15 @@ Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sTimeFormat" -
 
 # Disable unused Windows Features
 Disable-WindowsOptionalFeature -FeatureName "WindowsMediaPlayer" -Online -NoRestart -ErrorAction SilentlyContinue
-Disable-WindowsOptionalFeature -FeatureName "Internet-Explorer-Optional-amd64" -Online -NoRestart -ErrorAction SilentlyContinue
+#Disable-WindowsOptionalFeature -FeatureName "Internet-Explorer-Optional-amd64" -Online -NoRestart -ErrorAction SilentlyContinue
 Disable-WindowsOptionalFeature -FeatureName "Printing-XPSServices-Features" -Online -NoRestart -ErrorAction SilentlyContinue
 Disable-WindowsOptionalFeature -FeatureName "WorkFolders-Client" -Online -NoRestart -ErrorAction SilentlyContinue
 
 # Enable Windows Sandbox
 Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online -NoRestart -ErrorAction SilentlyContinue
+
+#Enable WSL
+Enable-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online -NoRestart -WarningAction SilentlyContinue
 
 New-Item -Path "C:\" -Name "Workspaces" -ItemType "Directory"
 
