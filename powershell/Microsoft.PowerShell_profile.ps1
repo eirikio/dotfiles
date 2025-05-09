@@ -3,7 +3,7 @@ Import-Module "posh-git"
 Import-Module "Terminal-Icons"
 Import-Module "PSReadLine"
 
-Set-PoshPrompt -Theme "$env:USERPROFILE\.oh-my-posh-custom-theme.omp.json"
+Set-PoshPrompt -Theme "$env:USERPROFILE\powershell-themes\space.omp.json"
 
 Set-PSReadlineOption -BellStyle "None"
 Set-PSReadLineOption -PredictionSource "History"
