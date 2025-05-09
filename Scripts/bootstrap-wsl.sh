@@ -53,7 +53,7 @@ fi
 
 # --- Copy .zshrc to home ---
 cp "$DOTFILES/.zshrc" ~/.zshrc
-source ~/-zshrc
+source ~/.zshrc
 echo "Copied .zshrc to home"
 
 cp "$DOTFILES/.gitconfig" ~/.gitconfig
