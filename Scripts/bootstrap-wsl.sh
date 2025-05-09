@@ -18,7 +18,8 @@ sudo apt install -y \
   ripgrep \
   bat \
   unzip \
-  wslu
+  wslu \
+  jq
 
 yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
@@ -98,6 +99,24 @@ if command -v code &> /dev/null; then
     done
 else
     echo "VS Code not found; skipping extension installation."
+fi
+
+VSCODE_SETTINGS=~/.config/Code/User/settings.json
+MY_SETTINGS="$DOTFILES/style-settings/vscode/settings.json"
+
+if [ -f "$MY_SETTINGS" ]; then
+    echo "Merging VS Code settings..."
+    
+    if [ -f "$VSCODE_SETTINGS" ]; then
+        jq -s '.[0] * .[1]' "$MY_SETTINGS" "$VSCODE_SETTINGS" > /tmp/merged_settings.json \
+            && mv /tmp/merged_settings.json "$VSCODE_SETTINGS"
+    else
+        cp "$MY_SETTINGS" "$VSCODE_SETTINGS"
+    fi
+
+    echo "VS Code settings merged successfully."
+else
+    echo "No custom VS Code settings found; skipping."
 fi
 
 # --- Create scripts folder and copy publish.sh ---
