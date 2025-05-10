@@ -61,10 +61,18 @@ if ($Stage -eq "User") {
         Write-Host "Ubuntu already installed in WSL"
     }
 
+    # Schedule bootstrap-windows.ps1 to run from powershell after reboot
+    $elevateScriptAfterReboot = "Elevate-Script -scriptPath $bootstrapWin"
+    schtasks /Create /TN "BootstrapWindows" /TR $bootstrapWin /SC ONLOGON /RL LIMITED /DELAY 0001:30 /F
+
     Write-Host "`nElevating to admin to schedule Windows bootstrap..."
     Pause
     Elevate-Script -scriptPath $bootstrapWin
 }
+
+# Schedule bootstrap-windows.ps1 to run from powershell after reboot
+$winBootstrap = "powershell.exe -ExecutionPolicy Bypass -File .\dotfiles\Scripts\bootstrap-windows.ps1"
+schtasks /Create /TN "BootstrapWindows" /TR $winBootstrap /SC ONLOGON /RL LIMITED /DELAY 0001:30 /F
 
 # --- STAGE 2: ADMIN ---
 elseif ($Stage -eq "Admin") {
@@ -85,6 +93,10 @@ elseif ($Stage -eq "Admin") {
         /TR "powershell.exe -ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -File `"$escapedBootstrap`"" `
         /SC ONLOGON `
         /F
+
+    # Schedule bootstrap-windows.ps1 to run from powershell after reboot
+    $winBootstrap = "powershell.exe -ExecutionPolicy Bypass -File .\dotfiles\Scripts\bootstrap-windows.ps1"
+    schtasks /Create /TN "BootstrapWindows" /TR $winBootstrap /SC ONLOGON /RL LIMITED /DELAY 0001:30 /F
 
     Write-Host "`nScheduled task result:"
     Write-Host $result
