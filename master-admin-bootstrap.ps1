@@ -1,3 +1,7 @@
+param(
+    [string]$Stage = "User"
+)
+
 # --- Shared ---
 $dotfilesPath = "$env:USERPROFILE\dotfiles"
 $bootstrapWin = "$dotfilesPath\Scripts\bootstrap-windows.ps1"
