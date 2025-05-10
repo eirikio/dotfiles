@@ -1,14 +1,11 @@
-1. Save master-bootstrap.ps1 to Desktop
+1. Download the dotfiles repo to your Downloads folder (default path for downloaded files).
 
-2. Open Terminal and paste this to move the master script to C:\Users\<username>\
+3. Run these commands in Windows Terminal
 ```
-Move-Item "C:\Users\$env:USERNAME\Desktop\master-bootstrap.ps1" "C:\Users\$env:USERNAME\"
-```
-
-3. Run the script with this
-```
-powershell.exe -ExecutionPolicy Bypass -File .\master-bootstrap.ps1
+Expand-Archive -Force "C:\Users\$env:USERNAME\Downloads\dotfiles-main.zip" "C:\Users\$env:USERNAME\dotfiles"
 ```
 
-Move-Item "C:\Users\$env:USERNAME\Downloads\dotfiles\" "C:\Users\$env:USERNAME\"
+3. Execute the script
+```
 powershell.exe -ExecutionPolicy Bypass -File .\dotfiles\master-user-bootstrap.ps1
+```
