@@ -31,14 +31,14 @@ $escapedBootstrap = $bootstrapWin.Replace('\', '\\')
 # if ($Stage -eq "User") {
 
         param ($scriptPath)
-    $argList = @(
-        "-ExecutionPolicy", "Bypass",
-        "-NoProfile",
-        "-File", $scriptPath,
-        "-Stage", "Admin"
-    )
+        $argList = @(
+            "-ExecutionPolicy", "Bypass",
+            "-NoProfile",
+            "-File", $scriptPath,
+            "-Stage", "Admin"
+        )
 
-    Write-Host $scriptPath
+        Write-Host $scriptPath
     
 #     Write-Host "`n=== Master Bootstrap: User Stage (Non-Admin) ===`n"
 
