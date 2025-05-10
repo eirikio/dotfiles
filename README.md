@@ -9,3 +9,6 @@ Move-Item "C:\Users\$env:USERNAME\Desktop\master-bootstrap.ps1" "C:\Users\$env:U
 ```
 powershell.exe -ExecutionPolicy Bypass -File .\master-bootstrap.ps1
 ```
+
+Move-Item "C:\Users\$env:USERNAME\Downloads\dotfiles\" "C:\Users\$env:USERNAME\"
+powershell.exe -ExecutionPolicy Bypass -File .\dotfiles\master-user-bootstrap.ps1
