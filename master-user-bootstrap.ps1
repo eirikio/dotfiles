@@ -11,6 +11,9 @@ Write-Host "Installing Spotify..."
 winget install --id=Spotify.Spotify --exact --accept-source-agreements
 Write-Host "Spotify installed.`n"
 
+winget install JanDeDobbeleer.OhMyPosh -s winget
+winget upgrade JanDeDobbeleer.OhMyPosh -s winget
+
 # --- Install Git if missing ---
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     Write-Host "Git not found. Installing..."
