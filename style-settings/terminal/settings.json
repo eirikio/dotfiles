@@ -36,7 +36,7 @@
         "icon": "ms-appx:///ProfileIcons/pwsh.png",
         "name": "PowerShell",
         "source": "Windows.Terminal.PowershellCore",
-        "startingDirectory": "C:\\__USERNAME__"
+        "startingDirectory": "C:\\Users\\__USERNAME__"
       },
       {
         "colorScheme": "Dracula",
