@@ -54,20 +54,25 @@ if (-not (Test-Path $dotfilesPath)) {
 #Enable WSL
 #Enable-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online -NoRestart -WarningAction SilentlyContinue
 
+# Enable WSL at next logon
+$mwslAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -Command `"Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart`""
+$mwslTrigger = New-ScheduledTaskTrigger -AtLogOn
+$mwslPrincipal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -RunLevel Highest
+Register-ScheduledTask -Action $mwslAction -Trigger $mwslTrigger -Principal $mwslPrincipal -TaskName "EnableMWSL" -Force
 
+# Launch WSL
 $wslAction = New-ScheduledTaskAction -Execute "wsl.exe -d Ubuntu"
-$wslTrigger = New-ScheduledTaskTrigger -AtLogOn
+$wslTrigger = New-ScheduledTaskTrigger -AtLogOn -Delay "00:00:5"
 $wslPrincipal = New-ScheduledTaskPrincipal -UserId $env:USERNAME
-
 Register-ScheduledTask -Action $wslAction -Trigger $wslTrigger -Principal $wslPrincipal -TaskName "FinishUbuntuSetup" -Force
 
+# Launch admin bootstrap
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File `"$adminLoader`""
 $trigger = New-ScheduledTaskTrigger -AtLogOn
 $principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -RunLevel Highest
-
 Register-ScheduledTask -Action $action -Trigger $trigger -Principal $principal -TaskName "RunAfterReboot" -Force
 
+# Kick off
 schtasks /Run /TN "RunAfterReboot"
-
 Pause
 Restart-Computer -Force
