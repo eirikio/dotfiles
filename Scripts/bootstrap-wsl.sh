@@ -90,7 +90,6 @@ extensions=(
   "rvest.vs-code-prettier-eslint"
   "tonybaloney.vscode-pets"
   "aic.docify"
-  # Add more if needed
 )
 
 if command -v code &> /dev/null; then
@@ -139,14 +138,6 @@ echo "Checking for WSL package updates..."
 sudo apt update && sudo apt upgrade -y
 echo "System packages updated"
 
-# --- Optional: Upgrade NVM-managed Node (if needed) ---
-#if command -v nvm &>/dev/null; then
-#  nvm install --lts --reinstall-packages-from=current
-#  echo "Node.js LTS version updated via NVM"
-#fi
-
-
-
 # --- Optional: remove the repo ---
 rm -rf "$DOTFILES"
 echo "Removed dotfiles repo after setup"
@@ -154,6 +145,21 @@ echo "Removed dotfiles repo after setup"
 
 # --- Set Zsh as default shell ---
 chsh -s $(which zsh)
+
+# --- Ensure zsh starts automatically on WSL login ---
+zsh_launch_snippet='
+# Start Zsh automatically if available
+if [ -t 1 ] && [ -x "$(command -v zsh)" ]; then
+  exec zsh
+fi
+'
+
+if ! grep -Fxq "exec zsh" ~/.bashrc; then
+  echo "$zsh_launch_snippet" >> ~/.bashrc
+  echo "Added Zsh auto-launch to ~/.bashrc"
+else
+  echo "Zsh launch already configured in ~/.bashrc"
+fi
 
 # Cleanup scheduled task
 pwsh.exe schtasks /Delete /TN "BootstrapWSL" /F
