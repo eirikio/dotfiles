@@ -7,14 +7,12 @@ Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 
 # --- Install Applications via Winget ---
 $apps = @(
-    "Microsoft.PowerToys",
-    "Brave.Brave",
-    "Microsoft.WindowsTerminal",
-    "Discord.Discord",
-    "RARLab.WinRAR",
-    "SteelSeries.GG",
-    "OBSProject.OBSStudio",
-    #"Docker.DockerDesktop",
+    # "Microsoft.PowerToys",
+    # "Brave.Brave",
+    # "Discord.Discord",
+    # "RARLab.WinRAR",
+    # "SteelSeries.GG",
+    # "OBSProject.OBSStudio",
     "Microsoft.PowerShell",
     "Microsoft.VisualStudioCode"
 )
@@ -91,7 +89,7 @@ Disable-WindowsOptionalFeature -FeatureName "WorkFolders-Client" -Online -NoRest
 Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online -NoRestart -ErrorAction SilentlyContinue
 
 #Enable WSL
-Enable-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online -NoRestart -WarningAction SilentlyContinue
+# Enable-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online -NoRestart -WarningAction SilentlyContinue
 
 New-Item -Path "C:\" -Name "Workspaces" -ItemType "Directory"
 
@@ -160,15 +158,18 @@ if ($newPCName -and ($env:COMPUTERNAME -ne $newPCName)) {
 } elseif (-not $newPCName) {
     Write-Host "No PC name entered; skipping rename."
 }
+Pause
+
+Write-Host "-- Success -- "
 
 # --- Schedule bootstrap-wsl.sh to run from WSL after reboot ---
-$wslBootstrap = "wsl.exe bash -c '~/dotfiles/Scripts/bootstrap-wsl.sh'"
-schtasks /Create /TN "BootstrapWSL" /TR $wslBootstrap /SC ONLOGON /RL LIMITED /DELAY 0000:30 /F
+# $wslBootstrap = "wsl.exe bash -c '~/dotfiles/Scripts/bootstrap-wsl.sh'"
+# schtasks /Create /TN "BootstrapWSL" /TR $wslBootstrap /SC ONLOGON /RL LIMITED /DELAY 0000:30 /F
 
-if (Get-ScheduledTask -TaskName "BootstrapWindows" -ErrorAction SilentlyContinue) {
-    schtasks /Delete /TN "BootstrapWindows" /F
-    Write-Host "BootstrapWindows task deleted."
-} else {
-    Write-Host "BootstrapWindows task was not found; skipping delete."
-}
-Restart-Computer
+# if (Get-ScheduledTask -TaskName "BootstrapWindows" -ErrorAction SilentlyContinue) {
+#     schtasks /Delete /TN "BootstrapWindows" /F
+#     Write-Host "BootstrapWindows task deleted."
+# } else {
+#     Write-Host "BootstrapWindows task was not found; skipping delete."
+# }
+# Restart-Computer
