@@ -105,12 +105,11 @@ if (Test-Path $ohMyPoshThemeSource) {
 $sourceProfile = "$dotfilesPath\powershell\Microsoft.PowerShell_profile.ps1"
 $targetProfile = "C:\Users\$env:USERNAME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 
-if (Test-Path $sourceProfile) {
-    Copy-Item $sourceProfile $targetProfile -Force
-    Write-Host "PowerShell profile copied from dotfiles"
-} else {
-    Write-Host "PowerShell profile not found in dotfiles"
+$targetDir = Split-Path $targetProfile
+if (-not (Test-Path $targetDir)) {
+    New-Item -ItemType Directory -Path $targetDir -Force | Out-Null
 }
+Copy-Item $sourceProfile $targetProfile -Force
 
 # --- Apply Windows Terminal settings.json ---
 $terminalJsonSource = "$dotfilesPath\style-settings\terminal\settings.json"
