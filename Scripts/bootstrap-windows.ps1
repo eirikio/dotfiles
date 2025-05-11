@@ -22,12 +22,13 @@ foreach ($app in $apps) {
     winget install --id=$app -e
 }
 
+Install-Module -Name "oh-my-posh" -Force -AllowClobber
 Install-Module -Name "posh-git" -Force -AllowClobber
 Install-Module -Name "Terminal-Icons" -Force -AllowClobber
 Install-Module -Name "PSWebSearch" -Force -AllowClobber
 Install-Module -Name "PSReadLine" -Force -AllowClobber
 
-$modules = @("posh-git", "Terminal-Icons", "PSWebSearch", "PSReadLine")
+$modules = @("oh-my-posh","posh-git", "Terminal-Icons", "PSWebSearch", "PSReadLine")
 
 foreach ($mod in $modules) {
     if (Get-Module -ListAvailable -Name $mod) {
