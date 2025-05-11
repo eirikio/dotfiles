@@ -11,7 +11,7 @@ $dotfilesPath = "$env:USERPROFILE\dotfiles"
 $adminLoader = "$dotfilesPath\master-admin-bootstrap.ps1"
 $currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 
-# --- Enable WSL Task ---
+# --- Enable WSL Task / Kan fjernes ---
 $mwslAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -Command `"Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart`""
 $mwslTrigger = New-ScheduledTaskTrigger -AtLogOn
 $mwslPrincipal = New-ScheduledTaskPrincipal -UserId $currentUser -LogonType Interactive -RunLevel Highest
