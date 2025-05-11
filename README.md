@@ -2,7 +2,7 @@
 
 3. Run these commands in PowerShell
 ```
-Expand-Archive -Force "C:\Users\$env:USERNAME\Downloads\dotfiles-main.zip" "C:\Users\$env:USERNAME\"
+Expand-Archive -Force "C:\Users\$env:USERNAME\Downloads\dotfiles-main.zip" "C:\Users\$env:USERNAME"
 Rename-Item -Path "C:\Users\$env:USERNAME\dotfiles-main" -NewName "dotfiles"
 ```
 
