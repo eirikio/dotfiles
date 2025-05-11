@@ -29,13 +29,14 @@ if (-not (Test-Path $dotfilesPath)) {
     Write-Host "Dotfiles cloned to $dotfilesPath.`n"
 }
 
-# --- Install WSL + Ubuntu ---
-Write-Host "Installing WSL + Ubuntu (WSL1)..."
-wsl --set-default-version 1
-wsl --install -d Ubuntu
-wsl --list --verbose
-Write-Host "WSL installation command issued.`n"
-Pause
+# $wslList = wsl --list 2>$null
+# if ($wslList -notmatch "Ubuntu") {
+#     Write-Host "Installing WSL + Ubuntu..."
+#     wsl --install -d Ubuntu
+#     Write-Host "WSL installation started"
+# } else {
+#     Write-Host "Ubuntu already installed in WSL"
+# }
 
 # --- Run post-reboot task scheduler ---
 if (Test-Path $schedulerScript) {
