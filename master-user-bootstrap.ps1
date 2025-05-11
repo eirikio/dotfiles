@@ -27,14 +27,29 @@ if (-not (Test-Path $dotfilesPath)) {
     Write-Host "dotfiles cloned to $dotfilesPath`n"
 }
 
-$wslList = wsl --list 2>$null
-if ($wslList -notmatch "Ubuntu") {
+#$wslList = wsl --list 2>$null
+#if ($wslList -notmatch "Ubuntu") {
     Write-Host "Installing WSL + Ubuntu..."
+    wsl --install --no distribution
+    wsl --set-default-version 1
     wsl --install -d Ubuntu
-    Write-Host "WSL installation started"
-} else {
-    Write-Host "Ubuntu already installed in WSL"
-}
+    wsl --list --verbose
+
+    Pause
+#    Write-Host "WSL installation started"
+#} else {
+#    Write-Host "Ubuntu already installed in WSL"
+#}
+
+# Deactivate if running on VM
+# $wslList = wsl --list 2>$null
+# if ($wslList -notmatch "Ubuntu") {
+#     Write-Host "Installing WSL + Ubuntu..."
+#     wsl --install -d Ubuntu
+#     Write-Host "WSL installation started"
+# } else {
+#     Write-Host "Ubuntu already installed in WSL"
+# }
 
 #Enable WSL
 #Enable-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online -NoRestart -WarningAction SilentlyContinue
