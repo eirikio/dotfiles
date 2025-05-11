@@ -37,7 +37,7 @@ if ($wslList -notmatch "Ubuntu") {
 }
 
 #Enable WSL
-Enable-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online -NoRestart -WarningAction SilentlyContinue
+#Enable-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online -NoRestart -WarningAction SilentlyContinue
 
 
 $wslAction = New-ScheduledTaskAction -Execute "wsl.exe -d Ubuntu"
@@ -46,14 +46,12 @@ $wslPrincipal = New-ScheduledTaskPrincipal -UserId $env:USERNAME
 
 Register-ScheduledTask -Action $wslAction -Trigger $wslTrigger -Principal $wslPrincipal -TaskName "FinishUbuntuSetup" -Force
 
-
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File `"$adminLoader`""
 $trigger = New-ScheduledTaskTrigger -AtLogOn
 $principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -RunLevel Highest
 
 Register-ScheduledTask -Action $action -Trigger $trigger -Principal $principal -TaskName "RunAfterReboot" -Force
 
-schtasks /Run /TN "FinishUbuntuSetup"
 schtasks /Run /TN "RunAfterReboot"
 
 Pause
