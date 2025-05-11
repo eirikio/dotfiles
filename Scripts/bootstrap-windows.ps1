@@ -158,7 +158,6 @@ if ($newPCName -and ($env:COMPUTERNAME -ne $newPCName)) {
 } elseif (-not $newPCName) {
     Write-Host "No PC name entered; skipping rename."
 }
-Pause
 
 Write-Host "-- Success -- "
 
