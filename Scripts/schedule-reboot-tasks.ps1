@@ -25,9 +25,9 @@ $currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 # Register-ScheduledTask -Action $wslAction -Trigger $wslTrigger -Principal $wslPrincipal -TaskName "FinishUbuntuSetup" -Force
 
 # --- Admin Bootstrap Task ---
-# $adminAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File `"$adminLoader`""
-# $adminTrigger = New-ScheduledTaskTrigger -AtLogOn
-# $adminPrincipal = New-ScheduledTaskPrincipal -UserId $currentUser -LogonType Interactive -RunLevel Highest
-# Register-ScheduledTask -Action $adminAction -Trigger $adminTrigger -Principal $adminPrincipal -TaskName "RunAfterReboot" -Force
+$adminAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File `"$adminLoader`""
+$adminTrigger = New-ScheduledTaskTrigger -AtLogOn
+$adminPrincipal = New-ScheduledTaskPrincipal -UserId $currentUser -LogonType Interactive -RunLevel Highest
+Register-ScheduledTask -Action $adminAction -Trigger $adminTrigger -Principal $adminPrincipal -TaskName "RunAfterReboot" -Force
 
 Write-Host "`nTasks registered. They will run on next login."
