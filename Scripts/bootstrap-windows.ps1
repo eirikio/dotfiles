@@ -14,7 +14,7 @@ $apps = @(
     # "SteelSeries.GG",
     # "OBSProject.OBSStudio",
     "Microsoft.PowerShell",
-    "Microsoft.VisualStudioCode",
+    "Microsoft.VisualStudioCode"
 )
 
 foreach ($app in $apps) {
