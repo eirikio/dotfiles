@@ -60,24 +60,24 @@ New-Item -Path "$classicContextKey\InprocServer32" -Force | Out-Null
 # Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackDocs" -Value 0
 
 # Power plan tweaks
-powercfg -change "disk-timeout-ac" 0
-powercfg -change "disk-timeout-dc" 0
-powercfg -change "hibernate-timeout-ac" 0
-powercfg -change "hibernate-timeout-dc" 0
-powercfg -change "standby-timeout-ac" 0
-powercfg -change "standby-timeout-dc" 0
-powercfg -change "monitor-timeout-ac" 10
-powercfg -change "monitor-timeout-dc" 10
-powercfg /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 30
-powercfg /SETDCVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 30
-powercfg /SETACTIVE SCHEME_CURRENT
+#powercfg -change "disk-timeout-ac" 0
+#powercfg -change "disk-timeout-dc" 0
+#powercfg -change "hibernate-timeout-ac" 0
+#powercfg -change "hibernate-timeout-dc" 0
+#powercfg -change "standby-timeout-ac" 0
+#powercfg -change "standby-timeout-dc" 0
+#powercfg -change "monitor-timeout-ac" 10
+#powercfg -change "monitor-timeout-dc" 10
+#powercfg /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 30
+#powercfg /SETDCVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 30
+#powercfg /SETACTIVE SCHEME_CURRENT
 
 # Regional format tweaks
-Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "iFirstDayOfWeek" -Value "0"
-Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sShortDate" -Value "yyyy-MM-dd"
-Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sLongDate" -Value "dddd, d MMMM, yyyy"
-Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sShortTime" -Value "HH:mm"
-Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sTimeFormat" -Value "HH:mm:ss"
+#Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "iFirstDayOfWeek" -Value "0"
+#Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sShortDate" -Value "yyyy-MM-dd"
+#Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sLongDate" -Value "dddd, d MMMM, yyyy"
+#Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sShortTime" -Value "HH:mm"
+#Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sTimeFormat" -Value "HH:mm:ss"
 
 # Disable unused Windows Features
 Disable-WindowsOptionalFeature -FeatureName "WindowsMediaPlayer" -Online -NoRestart -ErrorAction SilentlyContinue
