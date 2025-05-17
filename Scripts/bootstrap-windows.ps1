@@ -57,7 +57,7 @@ if (-not (Test-Path $classicContextKey)) {
 New-Item -Path "$classicContextKey\InprocServer32" -Force | Out-Null
 
 # Remove recently opened items from JumpList
-Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackDocs" -Value 0
+# Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackDocs" -Value 0
 
 # Power plan tweaks
 powercfg -change "disk-timeout-ac" 0
