@@ -1,4 +1,4 @@
-1. Download the dotfiles repo to your Downloads folder (default path for downloaded files).
+1. Download the repo to your Downloads folder
 
 3. Run these commands in PowerShell
 ```
@@ -12,4 +12,3 @@ Rename-Item -Path "C:\Users\$env:USERNAME\dotfiles-main" -NewName "dotfiles"
 powershell.exe -ExecutionPolicy Bypass -File .\dotfiles\master-user-bootstrap.ps1
 ```
 
-Rename-Item -Path "C:\Users\$env:USERNAME\dotfiles-main" -NewName "dotfiles"
